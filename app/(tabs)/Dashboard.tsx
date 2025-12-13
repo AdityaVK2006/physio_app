@@ -167,7 +167,7 @@ const DashboardScreen = ({ navigation }) => {
         <View style={styles.header}>
           <View>
             <Text style={styles.greeting}>Good Morning,</Text>
-            <Text style={styles.userName}>Alex Johnson</Text>
+            <Text style={styles.userName}>Aditya Katepallewar</Text>
             <Text style={styles.userInfo}>Knee Rehabilitation Program • Week 3</Text>
           </View>
           <TouchableOpacity 

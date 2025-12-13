@@ -19,7 +19,7 @@ const { width } = Dimensions.get('window');
 const ProfileScreen = ({ navigation }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState({
-    name: 'Alex Johnson',
+    name: 'Aditya Katepallewar',
     email: 'alex.johnson@example.com',
     phone: '+1 (555) 123-4567',
     age: '35',
