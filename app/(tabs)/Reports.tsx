@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-import * as Progress from 'react-native-progress';
 
 const { width } = Dimensions.get('window');
 
@@ -23,106 +22,164 @@ const ReportsScreen = ({ navigation }) => {
   const [selectedReport, setSelectedReport] = useState(null);
   const [newReportTitle, setNewReportTitle] = useState('');
 
-  const filters = ['All', 'Monthly', 'Weekly', 'Session', 'Assessment'];
+  const filters = ['All', 'AI Generated', 'Doctor Sent'];
 
-  const reports = [
+  const aiGeneratedReports = [
     {
       id: 1,
-      title: 'Monthly Progress Report - October 2024',
-      date: 'Oct 31, 2024',
-      type: 'Monthly',
-      therapist: 'Dr. Sarah Chen',
-      duration: 'Full Month',
+      title: 'Weekly Progress Analysis - Week 4',
+      date: 'Nov 5, 2024',
+      type: 'AI Generated',
+      duration: 'Oct 29 - Nov 4',
       status: 'completed',
-      fileSize: '2.4 MB',
-      summary: 'Excellent progress in knee mobility. Continue with current exercises.',
+      fileSize: '1.8 MB',
+      summary: 'AI analysis shows 30% improvement in range of motion compared to last week.',
       color: '#44B8F3',
       metrics: {
         recovery: 85,
         adherence: 92,
         painLevel: 15,
       },
+      generatedBy: 'AI System',
+      aiInsights: [
+        'Range of motion improved by 12%',
+        'Exercise consistency at 94%',
+        'Recommended: Increase resistance by 10%'
+      ]
     },
     {
       id: 2,
-      title: 'Weekly Assessment Report',
-      date: 'Oct 28, 2024',
-      type: 'Weekly',
-      therapist: 'Dr. Michael Rodriguez',
-      duration: 'Week 4',
+      title: 'Pain Pattern Analysis Report',
+      date: 'Nov 3, 2024',
+      type: 'AI Generated',
+      duration: 'Last 30 days',
       status: 'completed',
-      fileSize: '1.8 MB',
-      summary: 'Strength improved by 25%. Consider increasing resistance.',
-      color: '#38B000',
+      fileSize: '2.1 MB',
+      summary: 'AI detected pain patterns decreasing by 40% during morning sessions.',
+      color: '#3BA8E0',
       metrics: {
-        recovery: 75,
+        recovery: 78,
         adherence: 88,
-        painLevel: 25,
+        painLevel: 22,
       },
+      generatedBy: 'AI Pain Analyzer',
+      aiInsights: [
+        'Morning pain levels decreased by 40%',
+        'Optimal exercise time: 9-11 AM',
+        'Suggestion: Add 5-minute warm-up'
+      ]
     },
     {
       id: 3,
-      title: 'Session Summary - Morning Therapy',
-      date: 'Oct 25, 2024',
-      type: 'Session',
-      therapist: 'Dr. Sarah Chen',
-      duration: '45 mins',
+      title: 'Monthly Performance Overview',
+      date: 'Nov 1, 2024',
+      type: 'AI Generated',
+      duration: 'October 2024',
       status: 'completed',
-      fileSize: '1.2 MB',
-      summary: 'Good range of motion achieved. Minor discomfort reported.',
-      color: '#FF6B6B',
+      fileSize: '2.5 MB',
+      summary: 'AI-generated comprehensive monthly performance review with personalized recommendations.',
+      color: '#2A9FD9',
       metrics: {
-        recovery: 70,
+        recovery: 90,
         adherence: 95,
-        painLevel: 30,
+        painLevel: 10,
       },
+      generatedBy: 'AI Analytics Engine',
+      aiInsights: [
+        'Overall recovery: 90% target achieved',
+        'Exercise adherence: 95% (Excellent)',
+        'Recommendation: Progress to intermediate level'
+      ]
     },
+  ];
+
+  const doctorSentReports = [
     {
       id: 4,
-      title: 'Initial Assessment Report',
-      date: 'Oct 15, 2024',
-      type: 'Assessment',
-      therapist: 'Dr. James Wilson',
-      duration: '2 hours',
-      status: 'completed',
-      fileSize: '3.1 MB',
-      summary: 'Baseline assessment complete. Treatment plan established.',
-      color: '#FFD93D',
+      title: 'Physiotherapy Assessment Report',
+      date: 'Oct 28, 2024',
+      type: 'Doctor Sent',
+      doctor: 'Dr. Sarah Chen',
+      specialty: 'Orthopedic Physiotherapist',
+      duration: '45 mins assessment',
+      status: 'reviewed',
+      fileSize: '3.2 MB',
+      summary: 'Professional assessment showing good progress in knee rehabilitation. Recommended exercises attached.',
+      color: '#38B000',
       metrics: {
-        recovery: 50,
+        recovery: 75,
         adherence: 85,
-        painLevel: 45,
+        painLevel: 25,
       },
+      nextAppointment: 'Nov 15, 2024',
+      doctorNotes: [
+        'Excellent patient compliance',
+        'Range of motion improved significantly',
+        'Continue current regimen for 2 more weeks'
+      ]
     },
     {
       id: 5,
-      title: 'Progress Tracking Report',
-      date: 'Oct 10, 2024',
-      type: 'Monthly',
-      therapist: 'Dr. Sarah Chen',
-      duration: 'Month 1',
-      status: 'completed',
-      fileSize: '2.1 MB',
-      summary: 'Steady improvement observed. Maintain current regimen.',
-      color: '#3BA8E0',
+      title: 'Progress Review & Treatment Plan',
+      date: 'Oct 20, 2024',
+      type: 'Doctor Sent',
+      doctor: 'Dr. Michael Rodriguez',
+      specialty: 'Sports Medicine',
+      duration: '30 mins consultation',
+      status: 'pending review',
+      fileSize: '2.8 MB',
+      summary: 'Updated treatment plan based on recent progress. New exercises added to regimen.',
+      color: '#2E7D32',
       metrics: {
-        recovery: 60,
-        adherence: 90,
-        painLevel: 35,
+        recovery: 70,
+        adherence: 80,
+        painLevel: 30,
       },
+      nextAppointment: 'Follow-up in 4 weeks',
+      doctorNotes: [
+        'Strength improvement noted',
+        'Consider adding resistance training',
+        'Monitor pain levels closely'
+      ]
+    },
+    {
+      id: 6,
+      title: 'Initial Consultation Report',
+      date: 'Oct 10, 2024',
+      type: 'Doctor Sent',
+      doctor: 'Dr. James Wilson',
+      specialty: 'Rehabilitation Specialist',
+      duration: '1 hour initial assessment',
+      status: 'reviewed',
+      fileSize: '4.1 MB',
+      summary: 'Complete baseline assessment with detailed treatment roadmap for knee rehabilitation.',
+      color: '#1B5E20',
+      metrics: {
+        recovery: 50,
+        adherence: 75,
+        painLevel: 45,
+      },
+      nextAppointment: 'Oct 24, 2024',
+      doctorNotes: [
+        'Good candidate for physiotherapy',
+        'Start with basic mobility exercises',
+        'Follow-up in 2 weeks'
+      ]
     },
   ];
 
   const stats = {
     totalReports: 12,
-    monthlyAvg: '4 reports',
-    complianceRate: '94%',
+    aiReports: 8,
+    doctorReports: 4,
     lastReport: '2 days ago',
   };
 
   const filteredReports = selectedFilter === 'All' 
-    ? reports 
-    : reports.filter(report => report.type === selectedFilter);
+    ? [...aiGeneratedReports, ...doctorSentReports]
+    : selectedFilter === 'AI Generated'
+    ? aiGeneratedReports
+    : doctorSentReports;
 
   const handleGenerateReport = () => {
     setIsGenerating(true);
@@ -135,15 +192,11 @@ const ReportsScreen = ({ navigation }) => {
     }, 2000);
   };
 
-  const viewReportDetails = (report) => {
-    setSelectedReport(report);
-    // Navigate to report details or show modal
-  };
-
   const getStatusColor = (status) => {
     switch(status) {
       case 'completed': return '#38B000';
-      case 'pending': return '#FFD93D';
+      case 'reviewed': return '#38B000';
+      case 'pending review': return '#FFD93D';
       case 'failed': return '#FF6B6B';
       default: return '#44B8F3';
     }
@@ -152,10 +205,108 @@ const ReportsScreen = ({ navigation }) => {
   const getStatusBgColor = (status) => {
     switch(status) {
       case 'completed': return 'rgba(56, 176, 0, 0.1)';
-      case 'pending': return 'rgba(255, 217, 61, 0.1)';
+      case 'reviewed': return 'rgba(56, 176, 0, 0.1)';
+      case 'pending review': return 'rgba(255, 217, 61, 0.1)';
       case 'failed': return 'rgba(255, 107, 107, 0.1)';
       default: return 'rgba(68, 184, 243, 0.1)';
     }
+  };
+
+  const renderReportCard = (report) => {
+    const isAIGenerated = report.type === 'AI Generated';
+    
+    return (
+      <TouchableOpacity 
+        key={report.id}
+        style={styles.reportCard}
+        activeOpacity={0.9}
+        onPress={() => setSelectedReport(report)}
+      >
+        <View style={styles.reportHeader}>
+          <View style={[styles.reportType, { backgroundColor: report.color + '20' }]}>
+            <Ionicons 
+              name={isAIGenerated ? "analytics" : "medical"} 
+              size={14} 
+              color={report.color} 
+              style={{ marginRight: 5 }}
+            />
+            <Text style={[styles.reportTypeText, { color: report.color }]}>
+              {report.type}
+            </Text>
+          </View>
+          
+          <View style={styles.reportActions}>
+            <TouchableOpacity style={styles.actionButton}>
+              <Ionicons name="share" size={18} color="#666" />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.actionButton}>
+              <Ionicons name="download" size={18} color="#666" />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <Text style={styles.reportTitle}>{report.title}</Text>
+        
+        <View style={styles.reportMeta}>
+          <View style={styles.metaItem}>
+            <Ionicons name="calendar" size={14} color="#666" />
+            <Text style={styles.metaText}>{report.date}</Text>
+          </View>
+          {isAIGenerated ? (
+            <View style={styles.metaItem}>
+              <Ionicons name="robot" size={14} color="#666" />
+              <Text style={styles.metaText}>{report.generatedBy}</Text>
+            </View>
+          ) : (
+            <View style={styles.metaItem}>
+              <Ionicons name="person" size={14} color="#666" />
+              <Text style={styles.metaText}>{report.doctor}</Text>
+            </View>
+          )}
+          <View style={styles.metaItem}>
+            <Ionicons name="time" size={14} color="#666" />
+            <Text style={styles.metaText}>{report.duration}</Text>
+          </View>
+        </View>
+
+        <Text style={styles.reportSummary}>{report.summary}</Text>
+
+        {/* AI Insights or Doctor Notes */}
+        <View style={styles.insightsContainer}>
+          <Text style={styles.insightsTitle}>
+            {isAIGenerated ? 'AI Insights:' : 'Doctor Notes:'}
+          </Text>
+          {(isAIGenerated ? report.aiInsights : report.doctorNotes).slice(0, 2).map((insight, index) => (
+            <View key={index} style={styles.insightItem}>
+              <Ionicons 
+                name={isAIGenerated ? "bulb" : "medical"} 
+                size={12} 
+                color={report.color} 
+                style={{ marginRight: 8 }}
+              />
+              <Text style={styles.insightText}>{insight}</Text>
+            </View>
+          ))}
+        </View>
+
+        <View style={styles.reportFooter}>
+          <View style={styles.fileInfo}>
+            <Ionicons name="document" size={16} color="#666" />
+            <Text style={styles.fileSize}>{report.fileSize}</Text>
+          </View>
+          <View style={[styles.statusBadge, { backgroundColor: getStatusBgColor(report.status) }]}>
+            <Ionicons 
+              name={report.status.includes('completed') || report.status.includes('reviewed') ? 'checkmark-circle' : 'time'} 
+              size={14} 
+              color={getStatusColor(report.status)} 
+            />
+            <Text style={[styles.statusText, { color: getStatusColor(report.status) }]}>
+              {report.status.charAt(0).toUpperCase() + report.status.slice(1)}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
   };
 
   return (
@@ -181,24 +332,6 @@ const ReportsScreen = ({ navigation }) => {
           >
             <Ionicons name="analytics" size={24} color="#fff" />
           </TouchableOpacity>
-        </View>
-
-        {/* Quick Stats */}
-        <View style={styles.statsContainer}>
-          {[
-            { label: 'Total Reports', value: stats.totalReports, icon: 'document-text', color: '#44B8F3' },
-            { label: 'Monthly Avg', value: stats.monthlyAvg, icon: 'calendar', color: '#38B000' },
-            { label: 'Compliance', value: stats.complianceRate, icon: 'checkmark-circle', color: '#FFD93D' },
-            { label: 'Last Report', value: stats.lastReport, icon: 'time', color: '#FF6B6B' },
-          ].map((stat, index) => (
-            <View key={index} style={styles.statCard}>
-              <View style={[styles.statIcon, { backgroundColor: stat.color + '20' }]}>
-                <Ionicons name={stat.icon} size={20} color={stat.color} />
-              </View>
-              <Text style={styles.statValue}>{stat.value}</Text>
-              <Text style={styles.statLabel}>{stat.label}</Text>
-            </View>
-          ))}
         </View>
 
         {/* Filter Buttons */}
@@ -228,6 +361,12 @@ const ReportsScreen = ({ navigation }) => {
                 ]}
                 onPress={() => setSelectedFilter(filter)}
               >
+                <Ionicons 
+                  name={filter === 'AI Generated' ? 'robot' : filter === 'Doctor Sent' ? 'medical' : 'apps'} 
+                  size={16} 
+                  color={selectedFilter === filter ? '#fff' : '#666'}
+                  style={{ marginRight: 5 }}
+                />
                 <Text style={[
                   styles.filterText,
                   selectedFilter === filter && styles.filterTextActive
@@ -246,121 +385,51 @@ const ReportsScreen = ({ navigation }) => {
         <View style={styles.sectionContainer}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>
-              {selectedFilter === 'All' ? 'All Reports' : selectedFilter + ' Reports'}
+              {selectedFilter === 'All' ? 'All Reports' : 
+               selectedFilter === 'AI Generated' ? 'AI Generated Reports' : 
+               'Doctor Sent Reports'}
             </Text>
             <Text style={styles.sectionCount}>{filteredReports.length} reports</Text>
           </View>
 
-          {filteredReports.map((report) => (
-            <TouchableOpacity 
-              key={report.id}
-              style={styles.reportCard}
-              activeOpacity={0.9}
-              onPress={() => viewReportDetails(report)}
-            >
-              <View style={styles.reportHeader}>
-                <View style={[styles.reportType, { backgroundColor: report.color + '20' }]}>
-                  <Text style={[styles.reportTypeText, { color: report.color }]}>
-                    {report.type}
-                  </Text>
-                </View>
-                
-                <View style={styles.reportActions}>
-                  <TouchableOpacity style={styles.actionButton}>
-                    <Ionicons name="share" size={18} color="#666" />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.actionButton}>
-                    <Ionicons name="download" size={18} color="#666" />
-                  </TouchableOpacity>
-                </View>
+          {filteredReports.map(renderReportCard)}
+        </View>
+
+        {/* Quick Stats */}
+        <View style={styles.statsContainer}>
+          {[
+            { 
+              label: 'Total Reports', 
+              value: stats.totalReports, 
+              icon: 'document-text', 
+              color: '#44B8F3' 
+            },
+            { 
+              label: 'AI Generated', 
+              value: stats.aiReports, 
+              icon: 'robot', 
+              color: '#3BA8E0' 
+            },
+            { 
+              label: 'Doctor Sent', 
+              value: stats.doctorReports, 
+              icon: 'medical', 
+              color: '#38B000' 
+            },
+            { 
+              label: 'Last Report', 
+              value: stats.lastReport, 
+              icon: 'time', 
+              color: '#FFD93D' 
+            },
+          ].map((stat, index) => (
+            <View key={index} style={styles.statCard}>
+              <View style={[styles.statIcon, { backgroundColor: stat.color + '20' }]}>
+                <Ionicons name={stat.icon} size={20} color={stat.color} />
               </View>
-
-              <Text style={styles.reportTitle}>{report.title}</Text>
-              
-              <View style={styles.reportMeta}>
-                <View style={styles.metaItem}>
-                  <Ionicons name="calendar" size={14} color="#666" />
-                  <Text style={styles.metaText}>{report.date}</Text>
-                </View>
-                <View style={styles.metaItem}>
-                  <Ionicons name="person" size={14} color="#666" />
-                  <Text style={styles.metaText}>{report.therapist}</Text>
-                </View>
-                <View style={styles.metaItem}>
-                  <Ionicons name="time" size={14} color="#666" />
-                  <Text style={styles.metaText}>{report.duration}</Text>
-                </View>
-              </View>
-
-              <Text style={styles.reportSummary}>{report.summary}</Text>
-
-              <View style={styles.reportMetrics}>
-                <View style={styles.metricContainer}>
-                  <Text style={styles.metricLabelSmall}>Recovery</Text>
-                  <View style={styles.metricBar}>
-                    <View 
-                      style={[
-                        styles.metricFill,
-                        { 
-                          width: `${report.metrics.recovery}%`,
-                          backgroundColor: report.color
-                        }
-                      ]} 
-                    />
-                  </View>
-                  <Text style={styles.metricValueSmall}>{report.metrics.recovery}%</Text>
-                </View>
-
-                <View style={styles.metricContainer}>
-                  <Text style={styles.metricLabelSmall}>Adherence</Text>
-                  <View style={styles.metricBar}>
-                    <View 
-                      style={[
-                        styles.metricFill,
-                        { 
-                          width: `${report.metrics.adherence}%`,
-                          backgroundColor: report.color
-                        }
-                      ]} 
-                    />
-                  </View>
-                  <Text style={styles.metricValueSmall}>{report.metrics.adherence}%</Text>
-                </View>
-
-                <View style={styles.metricContainer}>
-                  <Text style={styles.metricLabelSmall}>Pain Level</Text>
-                  <View style={styles.metricBar}>
-                    <View 
-                      style={[
-                        styles.metricFill,
-                        { 
-                          width: `${report.metrics.painLevel}%`,
-                          backgroundColor: '#FF6B6B'
-                        }
-                      ]} 
-                    />
-                  </View>
-                  <Text style={styles.metricValueSmall}>{report.metrics.painLevel}%</Text>
-                </View>
-              </View>
-
-              <View style={styles.reportFooter}>
-                <View style={styles.fileInfo}>
-                  <Ionicons name="document" size={16} color="#666" />
-                  <Text style={styles.fileSize}>{report.fileSize}</Text>
-                </View>
-                <View style={[styles.statusBadge, { backgroundColor: getStatusBgColor(report.status) }]}>
-                  <Ionicons 
-                    name={report.status === 'completed' ? 'checkmark-circle' : 'time'} 
-                    size={14} 
-                    color={getStatusColor(report.status)} 
-                  />
-                  <Text style={[styles.statusText, { color: getStatusColor(report.status) }]}>
-                    {report.status.charAt(0).toUpperCase() + report.status.slice(1)}
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
+              <Text style={styles.statValue}>{stat.value}</Text>
+              <Text style={styles.statLabel}>{stat.label}</Text>
+            </View>
           ))}
         </View>
 
@@ -381,7 +450,7 @@ const ReportsScreen = ({ navigation }) => {
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
             >
-              <Text style={styles.modalTitle}>Generate New Report</Text>
+              <Text style={styles.modalTitle}>Generate AI Report</Text>
               <TouchableOpacity 
                 style={styles.modalClose}
                 onPress={() => setShowReportModal(false)}
@@ -403,16 +472,17 @@ const ReportsScreen = ({ navigation }) => {
 
                 <Text style={styles.modalLabel}>Report Type</Text>
                 <View style={styles.typeOptions}>
-                  {['Progress Report', 'Session Summary', 'Assessment', 'Custom'].map((type) => (
+                  {['Progress Analysis', 'Pain Pattern', 'Performance Overview'].map((type) => (
                     <TouchableOpacity key={type} style={styles.typeOption}>
+                      <Ionicons name="robot" size={16} color="#44B8F3" style={{ marginRight: 5 }} />
                       <Text style={styles.typeOptionText}>{type}</Text>
                     </TouchableOpacity>
                   ))}
                 </View>
 
-                <Text style={styles.modalLabel}>Time Period</Text>
+                <Text style={styles.modalLabel}>Analysis Period</Text>
                 <View style={styles.periodOptions}>
-                  {['Last Week', 'Last Month', 'Last Quarter', 'Custom Range'].map((period) => (
+                  {['Last Week', 'Last 2 Weeks', 'Last Month', 'Custom Range'].map((period) => (
                     <TouchableOpacity key={period} style={styles.periodOption}>
                       <Text style={styles.periodOptionText}>{period}</Text>
                     </TouchableOpacity>
@@ -421,12 +491,11 @@ const ReportsScreen = ({ navigation }) => {
 
                 {isGenerating ? (
                   <View style={styles.generatingContainer}>
-                    <Progress.Circle 
-                      size={60} 
-                      indeterminate={true} 
-                      color="#44B8F3" 
-                    />
-                    <Text style={styles.generatingText}>Generating Report...</Text>
+                    <View style={styles.loadingSpinner}>
+                      <Ionicons name="sync" size={40} color="#44B8F3" style={styles.spinnerIcon} />
+                    </View>
+                    <Text style={styles.generatingText}>AI Generating Report...</Text>
+                    <Text style={styles.generatingSubtext}>Analyzing your progress data</Text>
                   </View>
                 ) : (
                   <TouchableOpacity 
@@ -439,8 +508,8 @@ const ReportsScreen = ({ navigation }) => {
                       start={{ x: 0, y: 0 }}
                       end={{ x: 1, y: 1 }}
                     >
-                      <Ionicons name="document-text" size={24} color="#fff" />
-                      <Text style={styles.generateModalText}>Generate Report</Text>
+                      <Ionicons name="analytics" size={24} color="#fff" />
+                      <Text style={styles.generateModalText}>Generate AI Report</Text>
                     </LinearGradient>
                   </TouchableOpacity>
                 )}
@@ -552,11 +621,6 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#333',
   },
-  sectionSubtitle: {
-    fontSize: 14,
-    color: '#44B8F3',
-    fontWeight: '600',
-  },
   sectionCount: {
     fontSize: 14,
     color: '#666',
@@ -575,61 +639,17 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginLeft: 5,
   },
-  progressCard: {
-    borderRadius: 20,
-    padding: 25,
-  },
-  progressHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  progressTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#fff',
-  },
-  progressPercent: {
-    fontSize: 32,
-    fontWeight: '700',
-    color: '#fff',
-  },
-  progressBar: {
-    marginBottom: 25,
-  },
-  progressMetrics: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  metricItem: {
-    alignItems: 'center',
-  },
-  metricValue: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#fff',
-    marginBottom: 5,
-  },
-  metricLabel: {
-    fontSize: 12,
-    color: 'rgba(255, 255, 255, 0.8)',
-  },
-  metricDivider: {
-    width: 1,
-    height: 40,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-  },
   filtersScroll: {
     marginHorizontal: -5,
   },
   filterButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingHorizontal: 20,
     paddingVertical: 12,
     backgroundColor: '#f0f0f0',
     borderRadius: 15,
     marginHorizontal: 5,
-    alignItems: 'center',
   },
   filterButtonActive: {
     backgroundColor: '#44B8F3',
@@ -647,7 +667,7 @@ const styles = StyleSheet.create({
     height: 6,
     borderRadius: 3,
     backgroundColor: '#fff',
-    marginTop: 5,
+    marginLeft: 8,
   },
   reportCard: {
     backgroundColor: '#fff',
@@ -669,6 +689,8 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   reportType: {
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 15,
@@ -716,37 +738,30 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#666',
     lineHeight: 20,
+    marginBottom: 15,
+  },
+  insightsContainer: {
+    backgroundColor: '#f9f9f9',
+    borderRadius: 12,
+    padding: 15,
     marginBottom: 20,
   },
-  reportMetrics: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  metricContainer: {
-    flex: 1,
-    marginHorizontal: 5,
-  },
-  metricLabelSmall: {
-    fontSize: 10,
-    color: '#666',
-    marginBottom: 5,
-  },
-  metricBar: {
-    height: 8,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 4,
-    overflow: 'hidden',
-    marginBottom: 5,
-  },
-  metricFill: {
-    height: '100%',
-    borderRadius: 4,
-  },
-  metricValueSmall: {
-    fontSize: 12,
+  insightsTitle: {
+    fontSize: 14,
     fontWeight: '600',
     color: '#333',
+    marginBottom: 10,
+  },
+  insightItem: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginBottom: 8,
+  },
+  insightText: {
+    fontSize: 13,
+    color: '#555',
+    lineHeight: 18,
+    flex: 1,
   },
   reportFooter: {
     flexDirection: 'row',
@@ -776,69 +791,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
     marginLeft: 5,
-  },
-  templatesGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  templateCard: {
-    width: (width - 80) / 2,
-    backgroundColor: '#fff',
-    borderRadius: 15,
-    padding: 20,
-    marginBottom: 15,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.05,
-    shadowRadius: 5,
-    elevation: 3,
-    borderWidth: 1,
-    borderColor: '#f0f0f0',
-  },
-  templateIcon: {
-    width: 60,
-    height: 60,
-    borderRadius: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 15,
-  },
-  templateTitle: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#333',
-    textAlign: 'center',
-  },
-  viewAllText: {
-    fontSize: 14,
-    color: '#44B8F3',
-    fontWeight: '600',
-  },
-  exportOptions: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  exportButton: {
-    alignItems: 'center',
-    padding: 15,
-    backgroundColor: '#fff',
-    borderRadius: 15,
-    minWidth: 100,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.05,
-    shadowRadius: 5,
-    elevation: 3,
-    borderWidth: 1,
-    borderColor: '#f0f0f0',
-  },
-  exportText: {
-    fontSize: 12,
-    color: '#333',
-    marginTop: 8,
-    textAlign: 'center',
   },
   modalOverlay: {
     flex: 1,
@@ -907,6 +859,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   typeOption: {
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingHorizontal: 15,
     paddingVertical: 10,
     backgroundColor: '#f0f0f0',
@@ -939,11 +893,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 40,
   },
+  loadingSpinner: {
+    marginBottom: 20,
+  },
+  spinnerIcon: {
+    transform: [{ rotate: '0deg' }],
+  },
   generatingText: {
-    fontSize: 16,
+    fontSize: 18,
     color: '#44B8F3',
-    marginTop: 20,
     fontWeight: '600',
+    marginBottom: 5,
+  },
+  generatingSubtext: {
+    fontSize: 14,
+    color: '#666',
   },
   generateModalButton: {
     borderRadius: 15,

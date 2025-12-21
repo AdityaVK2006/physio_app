@@ -1,8 +1,9 @@
 // screens/OnboardingScreen.js
-import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter } from 'expo-router';
-import React, { useRef, useState } from 'react';
+import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
+import React, { useRef, useState } from "react";
+import { Image } from "expo-image";
 import {
   Alert,
   Animated,
@@ -14,9 +15,9 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
+} from "react-native";
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
 const OnboardingScreen = ({ navigation }: { navigation: any }) => {
   const router = useRouter();
@@ -28,119 +29,184 @@ const OnboardingScreen = ({ navigation }: { navigation: any }) => {
 
   const onboardingSlides = [
     {
-      id: '1',
-      title: 'Welcome to PhysioPro',
-      subtitle: 'Your Personal Physiotherapy Assistant',
-      description: 'Transform your recovery journey with personalized exercise plans and professional guidance.',
-      icon: 'fitness',
-      color: '#44B8F3',
-      image: '🏃‍♂️',
+      id: "1",
+      title: "Welcome to PhysioPro",
+      subtitle: "Your Personal Physiotherapy Assistant",
+      description:
+        "Transform your recovery journey with personalized exercise plans and professional guidance.",
+      icon: "fitness",
+      color: "#44B8F3",
+      image: "🏃‍♂️",
     },
     {
-      id: '2',
-      title: 'Track Your Progress',
-      subtitle: 'Monitor Recovery in Real-Time',
-      description: 'Visual progress tracking, exercise completion rates, and detailed recovery analytics.',
-      icon: 'stats-chart',
-      color: '#38B000',
-      image: '📈',
+      id: "2",
+      title: "Track Your Progress",
+      subtitle: "Monitor Recovery in Real-Time",
+      description:
+        "Visual progress tracking, exercise completion rates, and detailed recovery analytics.",
+      icon: "stats-chart",
+      color: "#38B000",
+      image: "📈",
     },
     {
-      id: '3',
-      title: 'Video Guides',
-      subtitle: 'Professional Exercise Demonstrations',
-      description: 'Step-by-step video instructions from certified physiotherapists.Live Posture Correction using AI.',
-      icon: 'videocam',
-      color: '#FF6B6B',
-      image: '🎬',
+      id: "3",
+      title: "Video Guides",
+      subtitle: "Professional Exercise Demonstrations",
+      description:
+        "Step-by-step video instructions from certified physiotherapists.Live Posture Correction using AI.",
+      icon: "videocam",
+      color: "#FF6B6B",
+      image: "🎬",
     },
     {
-      id: '4',
-      title: 'Personalized Plans',
-      subtitle: 'Tailored to Your Needs',
-      description: 'Custom exercise routines based on your condition, progress, and therapist recommendations.',
-      icon: 'medical',
-      color: '#FFD93D',
-      image: '🎯',
+      id: "4",
+      title: "Personalized Plans",
+      subtitle: "Tailored to Your Needs",
+      description:
+        "Custom exercise routines based on your condition, progress, and therapist recommendations.",
+      icon: "medical",
+      color: "#FFD93D",
+      image: "🎯",
     },
     {
-      id: '5',
-      title: 'Pain Region Selection',
-      subtitle: 'Tell Us Where It Hurts',
-      description: 'Select the areas where you experience pain or discomfort. You can select multiple regions.',
-      icon: 'body',
-      color: '#FF6B6B',
-      image: '🩺',
-      type: 'painRegion',
+      id: "5",
+      title: "Pain Region Selection",
+      subtitle: "Tell Us Where It Hurts",
+      description:
+        "Select the areas where you experience pain or discomfort. You can select multiple regions.",
+      icon: "body",
+      color: "#FF6B6B",
+      image: "🩺",
+      type: "painRegion",
     },
     {
-      id: '6',
-      title: 'Medical Report',
-      subtitle: 'Upload Your Report',
-      description: 'Upload your medical report or diagnostic file to help us create a personalized treatment plan.',
-      icon: 'document-attach',
-      color: '#8a2be2',
-      image: '📄',
-      type: 'fileUpload',
+      id: "6",
+      title: "Medical Report",
+      subtitle: "Upload Your Report",
+      description:
+        "Upload your medical report or diagnostic file to help us create a personalized treatment plan.",
+      icon: "document-attach",
+      color: "#8a2be2",
+      image: "📄",
+      type: "fileUpload",
     },
   ];
 
+  // Update the painRegions array with online images:
   const painRegions = [
-    { id: 'neck', label: 'Neck', icon: 'body' },
-    { id: 'shoulder', label: 'Shoulder', icon: 'body' },
-    { id: 'upperBack', label: 'Upper Back', icon: 'body' },
-    { id: 'lowerBack', label: 'Lower Back', icon: 'body' },
-    { id: 'elbow', label: 'Elbow', icon: 'body' },
-    { id: 'wrist', label: 'Wrist', icon: 'body' },
-    { id: 'hip', label: 'Hip', icon: 'body' },
-    { id: 'knee', label: 'Knee', icon: 'body' },
-    { id: 'ankle', label: 'Ankle', icon: 'body' },
-    { id: 'foot', label: 'Foot', icon: 'body' },
+    {
+      id: "neck",
+      label: "Neck",
+      icon: "body",
+      image: "https://therunningadvisor.com/wp-content/uploads/2024/02/treating-neck-pain-from-running-1708422005.jpg",
+    },
+    {
+      id: "shoulder",
+      label: "Shoulder",
+      icon: "body",
+      image: "https://www.healthgoesfemale.com/wp-content/uploads/2021/01/Untitled.png",
+    },
+    {
+      id: "upperBack",
+      label: "Upper Back",
+      icon: "body",
+      image: "https://www.fyzical.com/mechanicsburg/newsmedia/img/14741/gerd_back_pain_between_shoulder_blades.jpeg",
+    },
+    {
+      id: "lowerBack",
+      label: "Lower Back",
+      icon: "body",
+      image: "https://spinavita.co.uk/wp-content/uploads/lower-acute-pain.jpg",
+    },
+    {
+      id: "elbow",
+      label: "Elbow",
+      icon: "body",
+      image: "https://sa1s3optim.patientpop.com/assets/images/provider/photos/2333816.jpg",
+    },
+    {
+      id: "wrist",
+      label: "Wrist",
+      icon: "body",
+      image: "https://sa1s3optim.patientpop.com/assets/images/provider/photos/2547573.jpg",
+    },
+    {
+      id: "hip",
+      label: "Hip",
+      icon: "body",
+      image: "https://www.lrcc.com.au/wp-content/uploads/2023/07/Lower-back-and-hip-pain-on-one-side.jpg",
+    },
+    {
+      id: "knee",
+      label: "Knee",
+      icon: "body",
+      image: "https://painclinic.com.sg/wp-content/uploads/2014/07/knee-pain.jpg",
+    },
+    {
+      id: "ankle",
+      label: "Ankle",
+      icon: "body",
+      image: "https://medpoint.ie/wp-content/uploads/Ankle-Pain-Causes-Symptoms-and-Effective-Treatment-Options.jpg",
+    },
+    {
+      id: "foot",
+      label: "Foot",
+      icon: "body",
+      image: "https://ankleandfootcenters.com/wp-content/uploads/2023/07/Pain-on-Top-of-Foot.png",
+    },
   ];
 
-  const viewableItemsChanged = useRef(({ viewableItems }: { viewableItems: any[] }) => {
-    if (viewableItems.length > 0 && viewableItems[0].index !== null) {
-      setCurrentIndex(viewableItems[0].index);
+  const viewableItemsChanged = useRef(
+    ({ viewableItems }: { viewableItems: any[] }) => {
+      if (viewableItems.length > 0 && viewableItems[0].index !== null) {
+        setCurrentIndex(viewableItems[0].index);
+      }
     }
-  }).current;
+  ).current;
 
   const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
 
   const scrollTo = () => {
     const currentSlide = onboardingSlides[currentIndex];
-    
+
     // Validate pain region selection slide
-    if (currentSlide?.type === 'painRegion') {
+    if (currentSlide?.type === "painRegion") {
       if (selectedPainRegions.length === 0) {
-        Alert.alert('Selection Required', 'Please select at least one pain region to continue.');
+        Alert.alert(
+          "Selection Required",
+          "Please select at least one pain region to continue."
+        );
         return;
       }
     }
-    
+
     // Validate file upload slide
-    if (currentSlide?.type === 'fileUpload') {
+    if (currentSlide?.type === "fileUpload") {
       if (!uploadedFile) {
-        Alert.alert('File Required', 'Please upload your medical report to continue.');
+        Alert.alert(
+          "File Required",
+          "Please upload your medical report to continue."
+        );
         return;
       }
     }
-    
+
     if (currentIndex < onboardingSlides.length - 1) {
       if (slidesRef.current) {
         slidesRef.current.scrollToIndex({ index: currentIndex + 1 });
       }
     } else {
       // Save onboarding data before proceeding
-      console.log('Pain Regions:', selectedPainRegions);
-      console.log('Uploaded File:', uploadedFile);
-      router.replace('/(auth)');
+      console.log("Pain Regions:", selectedPainRegions);
+      console.log("Uploaded File:", uploadedFile);
+      router.replace("/(auth)");
     }
   };
 
   const togglePainRegion = (regionId: string) => {
-    setSelectedPainRegions(prev => 
-      prev.includes(regionId) 
-        ? prev.filter(id => id !== regionId)
+    setSelectedPainRegions((prev) =>
+      prev.includes(regionId)
+        ? prev.filter((id) => id !== regionId)
         : [...prev, regionId]
     );
   };
@@ -148,21 +214,26 @@ const OnboardingScreen = ({ navigation }: { navigation: any }) => {
   const pickDocument = async () => {
     try {
       // @ts-ignore - expo-document-picker needs to be installed: npm install expo-document-picker
-      const DocumentPicker = require('expo-document-picker');
+      const DocumentPicker = require("expo-document-picker");
       const result = await DocumentPicker.getDocumentAsync({
-        type: ['application/pdf', 'image/*', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+        type: [
+          "application/pdf",
+          "image/*",
+          "application/msword",
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        ],
         copyToCacheDirectory: true,
       });
-      
+
       if (!result.canceled && result.assets && result.assets.length > 0) {
         setUploadedFile(result.assets[0]);
       }
     } catch (error: any) {
       Alert.alert(
-        'Document Picker Not Available', 
-        'Please install expo-document-picker:\n\nnpm install expo-document-picker'
+        "Document Picker Not Available",
+        "Please install expo-document-picker:\n\nnpm install expo-document-picker"
       );
-      console.error('Document picker error:', error);
+      console.error("Document picker error:", error);
     }
   };
 
@@ -177,28 +248,28 @@ const OnboardingScreen = ({ navigation }: { navigation: any }) => {
       <View style={styles.paginator}>
         {onboardingSlides.map((_, i) => {
           const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
-          
+
           const dotWidth = scrollX.interpolate({
             inputRange,
             outputRange: [8, 24, 8],
-            extrapolate: 'clamp',
+            extrapolate: "clamp",
           });
 
           const opacity = scrollX.interpolate({
             inputRange,
             outputRange: [0.3, 1, 0.3],
-            extrapolate: 'clamp',
+            extrapolate: "clamp",
           });
 
           return (
             <Animated.View
               style={[
                 styles.dot,
-                { 
+                {
                   width: dotWidth,
                   opacity,
                   backgroundColor: onboardingSlides[i].color,
-                }
+                },
               ]}
               key={i.toString()}
             />
@@ -210,17 +281,22 @@ const OnboardingScreen = ({ navigation }: { navigation: any }) => {
 
   const renderItem = ({ item }: { item: any }) => {
     // Pain Region Selection Slide
-    if (item.type === 'painRegion') {
+    if (item.type === "painRegion") {
       return (
         <View style={styles.slide}>
-          <ScrollView 
+          <ScrollView
             style={styles.scrollableSlide}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.scrollableContent}
           >
             {/* Header */}
             <View style={styles.inputSlideHeader}>
-              <View style={[styles.iconContainer, { backgroundColor: item.color + '20' }]}>
+              <View
+                style={[
+                  styles.iconContainer,
+                  { backgroundColor: item.color + "20" },
+                ]}
+              >
                 <Ionicons name={item.icon} size={32} color={item.color} />
               </View>
               <Text style={styles.title}>{item.title}</Text>
@@ -237,29 +313,44 @@ const OnboardingScreen = ({ navigation }: { navigation: any }) => {
                     key={region.id}
                     style={[
                       styles.painRegionCard,
-                      isSelected && { 
-                        backgroundColor: item.color + '20',
+                      isSelected && {
+                        backgroundColor: item.color + "20",
                         borderColor: item.color,
                         borderWidth: 2,
-                      }
+                      },
                     ]}
                     onPress={() => togglePainRegion(region.id)}
                     activeOpacity={0.7}
                   >
-                    <View style={[
-                      styles.painRegionIcon,
-                      isSelected && { backgroundColor: item.color }
-                    ]}>
-                      <Ionicons 
-                        name={isSelected ? 'checkmark-circle' : 'ellipse-outline'} 
-                        size={24} 
-                        color={isSelected ? '#fff' : item.color} 
+                    {/* Add Image Container */}
+                    <View style={styles.imageContainer}>
+                      <Image
+                        source={{ uri: region.image }}
+                        style={styles.painRegionImage}
+                        resizeMode="contain"
                       />
                     </View>
-                    <Text style={[
-                      styles.painRegionLabel,
-                      isSelected && { color: item.color, fontWeight: '600' }
-                    ]}>
+
+                    <View
+                      style={[
+                        styles.painRegionIcon,
+                        isSelected && { backgroundColor: item.color },
+                      ]}
+                    >
+                      <Ionicons
+                        name={
+                          isSelected ? "checkmark-circle" : "ellipse-outline"
+                        }
+                        size={24}
+                        color={isSelected ? "#fff" : item.color}
+                      />
+                    </View>
+                    <Text
+                      style={[
+                        styles.painRegionLabel,
+                        isSelected && { color: item.color, fontWeight: "600" },
+                      ]}
+                    >
                       {region.label}
                     </Text>
                   </TouchableOpacity>
@@ -270,7 +361,8 @@ const OnboardingScreen = ({ navigation }: { navigation: any }) => {
             {selectedPainRegions.length > 0 && (
               <View style={styles.selectionSummary}>
                 <Text style={styles.selectionSummaryText}>
-                  {selectedPainRegions.length} region{selectedPainRegions.length > 1 ? 's' : ''} selected
+                  {selectedPainRegions.length} region
+                  {selectedPainRegions.length > 1 ? "s" : ""} selected
                 </Text>
               </View>
             )}
@@ -280,17 +372,22 @@ const OnboardingScreen = ({ navigation }: { navigation: any }) => {
     }
 
     // File Upload Slide
-    if (item.type === 'fileUpload') {
+    if (item.type === "fileUpload") {
       return (
         <View style={styles.slide}>
-          <ScrollView 
+          <ScrollView
             style={styles.scrollableSlide}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.scrollableContent}
           >
             {/* Header */}
             <View style={styles.inputSlideHeader}>
-              <View style={[styles.iconContainer, { backgroundColor: item.color + '20' }]}>
+              <View
+                style={[
+                  styles.iconContainer,
+                  { backgroundColor: item.color + "20" },
+                ]}
+              >
                 <Ionicons name={item.icon} size={32} color={item.color} />
               </View>
               <Text style={styles.title}>{item.title}</Text>
@@ -302,7 +399,12 @@ const OnboardingScreen = ({ navigation }: { navigation: any }) => {
             <View style={styles.fileUploadContainer}>
               {uploadedFile ? (
                 <View style={styles.uploadedFileCard}>
-                  <View style={[styles.fileIconContainer, { backgroundColor: item.color + '20' }]}>
+                  <View
+                    style={[
+                      styles.fileIconContainer,
+                      { backgroundColor: item.color + "20" },
+                    ]}
+                  >
                     <Ionicons name="document" size={40} color={item.color} />
                   </View>
                   <View style={styles.fileInfo}>
@@ -327,11 +429,17 @@ const OnboardingScreen = ({ navigation }: { navigation: any }) => {
                   activeOpacity={0.7}
                 >
                   <LinearGradient
-                    colors={[item.color + '20', item.color + '10']}
+                    colors={[item.color + "20", item.color + "10"]}
                     style={styles.uploadButtonGradient}
                   >
-                    <Ionicons name="cloud-upload" size={48} color={item.color} />
-                    <Text style={[styles.uploadButtonText, { color: item.color }]}>
+                    <Ionicons
+                      name="cloud-upload"
+                      size={48}
+                      color={item.color}
+                    />
+                    <Text
+                      style={[styles.uploadButtonText, { color: item.color }]}
+                    >
                       Tap to Upload Report
                     </Text>
                     <Text style={styles.uploadButtonSubtext}>
@@ -370,28 +478,35 @@ const OnboardingScreen = ({ navigation }: { navigation: any }) => {
       <View style={styles.slide}>
         {/* Skip Button (only show on first slide) */}
         {currentIndex === 0 && (
-          <TouchableOpacity 
-            style={styles.skipButton}
-            onPress={skipToEnd}
-          >
+          <TouchableOpacity style={styles.skipButton} onPress={skipToEnd}>
             <Text style={styles.skipText}>Skip</Text>
           </TouchableOpacity>
         )}
 
         {/* Emoji/Illustration */}
-        <View style={[styles.imageContainer, { backgroundColor: item.color + '20' }]}>
+        <View
+          style={[
+            styles.imageContainer,
+            { backgroundColor: item.color + "20" },
+          ]}
+        >
           <Text style={styles.emoji}>{item.image}</Text>
         </View>
 
         {/* Content */}
         <View style={styles.content}>
-          <View style={[styles.iconContainer, { backgroundColor: item.color + '20' }]}>
+          <View
+            style={[
+              styles.iconContainer,
+              { backgroundColor: item.color + "20" },
+            ]}
+          >
             <Ionicons name={item.icon} size={32} color={item.color} />
           </View>
-          
+
           <Text style={styles.title}>{item.title}</Text>
           <Text style={styles.subtitle}>{item.subtitle}</Text>
-          
+
           <Text style={styles.description}>{item.description}</Text>
         </View>
       </View>
@@ -402,29 +517,38 @@ const OnboardingScreen = ({ navigation }: { navigation: any }) => {
     const buttonScale = scrollX.interpolate({
       inputRange: [0, width * (onboardingSlides.length - 1)],
       outputRange: [1, 1.1],
-      extrapolate: 'clamp',
+      extrapolate: "clamp",
     });
 
     return (
       <Animated.View style={{ transform: [{ scale: buttonScale }] }}>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.nextButton}
           onPress={scrollTo}
           activeOpacity={0.9}
         >
           <LinearGradient
-            colors={[onboardingSlides[currentIndex].color, onboardingSlides[currentIndex].color + 'CC']}
+            colors={[
+              onboardingSlides[currentIndex].color,
+              onboardingSlides[currentIndex].color + "CC",
+            ]}
             style={styles.nextButtonGradient}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
           >
             <Text style={styles.nextButtonText}>
-              {currentIndex === onboardingSlides.length - 1 ? 'Get Started' : 'Continue'}
+              {currentIndex === onboardingSlides.length - 1
+                ? "Get Started"
+                : "Continue"}
             </Text>
-            <Ionicons 
-              name={currentIndex === onboardingSlides.length - 1 ? "checkmark" : "arrow-forward"} 
-              size={20} 
-              color="#fff" 
+            <Ionicons
+              name={
+                currentIndex === onboardingSlides.length - 1
+                  ? "checkmark"
+                  : "arrow-forward"
+              }
+              size={20}
+              color="#fff"
               style={styles.nextButtonIcon}
             />
           </LinearGradient>
@@ -436,10 +560,10 @@ const OnboardingScreen = ({ navigation }: { navigation: any }) => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      
+
       {/* Background Gradient */}
       <LinearGradient
-        colors={['#f8f9fa', '#fff', '#f8f9fa']}
+        colors={["#f8f9fa", "#fff", "#f8f9fa"]}
         style={styles.backgroundGradient}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -475,8 +599,8 @@ const OnboardingScreen = ({ navigation }: { navigation: any }) => {
       {/* Bottom Links */}
       <View style={styles.bottomLinks}>
         <Text style={styles.bottomText}>
-          By continuing, you agree to our{' '}
-          <Text style={styles.linkText}>Terms</Text> and{' '}
+          By continuing, you agree to our{" "}
+          <Text style={styles.linkText}>Terms</Text> and{" "}
           <Text style={styles.linkText}>Privacy Policy</Text>
         </Text>
       </View>
@@ -487,10 +611,10 @@ const OnboardingScreen = ({ navigation }: { navigation: any }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   backgroundGradient: {
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     right: 0,
     top: 0,
@@ -502,45 +626,44 @@ const styles = StyleSheet.create({
     paddingTop: 60,
   },
   skipButton: {
-    position: 'absolute',
+    position: "absolute",
     top: 60,
     right: 30,
     zIndex: 1,
   },
   skipText: {
     fontSize: 16,
-    color: '#666',
-    fontWeight: '500',
+    color: "#666",
+    fontWeight: "500",
   },
   imageContainer: {
+    width: 100,
+    height: 100,
+    marginBottom: 8,
+    borderRadius: 25,
+    backgroundColor: "#f0f0f0",
+    justifyContent: "center",
+    alignItems: "center",
+    overflow: "hidden"
+  },
+  painRegionImage: {
     width: 200,
     height: 200,
-    borderRadius: 100,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 40,
-    marginBottom: 50,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.1,
-    shadowRadius: 20,
-    elevation: 10,
   },
   emoji: {
     fontSize: 80,
   },
   content: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   iconContainer: {
     width: 70,
     height: 70,
     borderRadius: 35,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 30,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.1,
     shadowRadius: 10,
@@ -548,30 +671,30 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    fontWeight: '700',
-    color: '#333',
-    textAlign: 'center',
+    fontWeight: "700",
+    color: "#333",
+    textAlign: "center",
     marginBottom: 10,
     lineHeight: 38,
   },
   subtitle: {
     fontSize: 20,
-    color: '#44B8F3',
-    fontWeight: '600',
-    textAlign: 'center',
+    color: "#44B8F3",
+    fontWeight: "600",
+    textAlign: "center",
     marginBottom: 20,
   },
   description: {
     fontSize: 16,
-    color: '#666',
-    textAlign: 'center',
+    color: "#666",
+    textAlign: "center",
     lineHeight: 24,
     paddingHorizontal: 20,
   },
   paginator: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     height: 40,
   },
   dot: {
@@ -585,23 +708,23 @@ const styles = StyleSheet.create({
   },
   nextButton: {
     borderRadius: 20,
-    overflow: 'hidden',
-    shadowColor: '#44B8F3',
+    overflow: "hidden",
+    shadowColor: "#44B8F3",
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.3,
     shadowRadius: 15,
     elevation: 10,
   },
   nextButtonGradient: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 18,
   },
   nextButtonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: "700",
   },
   nextButtonIcon: {
     marginLeft: 10,
@@ -612,13 +735,13 @@ const styles = StyleSheet.create({
   },
   bottomText: {
     fontSize: 12,
-    color: '#999',
-    textAlign: 'center',
+    color: "#999",
+    textAlign: "center",
     lineHeight: 18,
   },
   linkText: {
-    color: '#44B8F3',
-    fontWeight: '600',
+    color: "#44B8F3",
+    fontWeight: "600",
   },
   scrollableSlide: {
     flex: 1,
@@ -627,26 +750,26 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   inputSlideHeader: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 30,
   },
   painRegionsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
     paddingHorizontal: 10,
     marginBottom: 20,
   },
   painRegionCard: {
     width: (width - 80) / 2,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 15,
     padding: 15,
     marginBottom: 15,
-    alignItems: 'center',
+    alignItems: "center",
     borderWidth: 1,
-    borderColor: '#e0e0e0',
-    shadowColor: '#000',
+    borderColor: "#e0e0e0",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
     shadowRadius: 5,
@@ -656,27 +779,27 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: '#f0f0f0',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#f0f0f0",
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 10,
   },
   painRegionLabel: {
     fontSize: 14,
-    color: '#333',
-    fontWeight: '500',
+    color: "#333",
+    fontWeight: "500",
   },
   selectionSummary: {
-    backgroundColor: '#f8f9fa',
+    backgroundColor: "#f8f9fa",
     borderRadius: 15,
     padding: 15,
     marginTop: 10,
-    alignItems: 'center',
+    alignItems: "center",
   },
   selectionSummaryText: {
     fontSize: 14,
-    color: '#666',
-    fontWeight: '600',
+    color: "#666",
+    fontWeight: "600",
   },
   fileUploadContainer: {
     marginBottom: 30,
@@ -684,46 +807,46 @@ const styles = StyleSheet.create({
   uploadButton: {
     borderRadius: 20,
     borderWidth: 2,
-    borderStyle: 'dashed',
-    overflow: 'hidden',
+    borderStyle: "dashed",
+    overflow: "hidden",
     marginHorizontal: 20,
   },
   uploadButtonGradient: {
     padding: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   uploadButtonText: {
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: "700",
     marginTop: 15,
   },
   uploadButtonSubtext: {
     fontSize: 12,
-    color: '#999',
+    color: "#999",
     marginTop: 5,
   },
   uploadedFileCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#fff",
     borderRadius: 15,
     padding: 20,
     marginHorizontal: 20,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.1,
     shadowRadius: 10,
     elevation: 5,
     borderWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: "#e0e0e0",
   },
   fileIconContainer: {
     width: 60,
     height: 60,
     borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginRight: 15,
   },
   fileInfo: {
@@ -731,40 +854,40 @@ const styles = StyleSheet.create({
   },
   fileName: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: "#333",
     marginBottom: 5,
   },
   fileSize: {
     fontSize: 12,
-    color: '#666',
+    color: "#666",
   },
   removeFileButton: {
     padding: 5,
   },
   fileTypesInfo: {
-    backgroundColor: '#f8f9fa',
+    backgroundColor: "#f8f9fa",
     borderRadius: 15,
     padding: 20,
     marginHorizontal: 20,
   },
   fileTypesTitle: {
     fontSize: 14,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: "#333",
     marginBottom: 10,
   },
   fileTypesList: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
   fileTypeItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   fileTypeText: {
     fontSize: 12,
-    color: '#666',
+    color: "#666",
     marginLeft: 5,
   },
 });
