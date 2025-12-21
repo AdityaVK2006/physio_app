@@ -14,7 +14,10 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-import { Video } from 'expo-av';
+import { useVideoPlayer, VideoView } from 'expo-video';
+import YoutubePlayer from 'react-native-youtube-iframe';
+import { useAudioPlayer } from 'expo-audio';
+import { ExerciseVideoPlayer } from '../../components/ExerciseVideoPlayer';
 
 const { width } = Dimensions.get('window');
 
@@ -23,8 +26,8 @@ const DashboardScreen = ({ navigation }) => {
   const [greeting, setGreeting] = useState('Good Morning');
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [showVideoModal, setShowVideoModal] = useState(false);
-  const videoRef = useRef(null);
   const scrollY = useRef(new Animated.Value(0)).current;
+  const successPlayer = useAudioPlayer('https://www.soundjay.com/buttons/sounds/button-09.mp3');
 
   // Stats Cards Data
   const statsData = [
@@ -34,7 +37,7 @@ const DashboardScreen = ({ navigation }) => {
       value: '5',
       subtitle: 'Today\'s plan',
       icon: 'fitness',
-      color: '#667eea',
+      color: '#44B8F3',
       trend: '+2',
       trendColor: '#38B000',
     },
@@ -81,8 +84,8 @@ const DashboardScreen = ({ navigation }) => {
       sets: '3 sets × 10 reps',
       calories: '45',
       completed: true,
-      color: '#667eea',
-      videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-man-doing-stretching-exercises-43505-large.mp4',
+      color: '#44B8F3',
+      videoUrl: 'https://www.youtube.com/watch?v=mi2fZ-NgSrk',
       thumbnail: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop',
       instructions: [
         'Sit on a chair with back straight',
@@ -102,8 +105,8 @@ const DashboardScreen = ({ navigation }) => {
       calories: '60',
       completed: false,
       color: '#FF6B6B',
-      videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-woman-doing-stretching-exercises-43506-large.mp4',
-      thumbnail: 'https://images.unsplash.com/photo-1549060279-7e168fce7090?w=800&auto=format&fit=crop',
+      videoUrl: 'https://www.youtube.com/watch?v=XIdXFzE4hDk',
+      thumbnail: 'https://plus.unsplash.com/premium_photo-1661265933107-85a5feec7ef1?w=800&auto=format&fit=crop',
       instructions: [
         'Stand with feet shoulder-width apart',
         'Rotate shoulders forward in circular motion',
@@ -122,7 +125,7 @@ const DashboardScreen = ({ navigation }) => {
       calories: '75',
       completed: false,
       color: '#38B000',
-      videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-man-doing-stretching-exercises-43505-large.mp4',
+      videoUrl: 'https://www.youtube.com/watch?v=H74vVbX60pM',
       thumbnail: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&auto=format&fit=crop',
       instructions: [
         'Lie on your stomach',
@@ -160,7 +163,7 @@ const DashboardScreen = ({ navigation }) => {
       id: 1,
       title: 'Start Exercise',
       icon: 'play-circle',
-      color: '#667eea',
+      color: '#44B8F3',
       screen: 'Exercises',
     },
     {
@@ -188,7 +191,7 @@ const DashboardScreen = ({ navigation }) => {
 
   // Progress Overview
   const progressData = [
-    { label: 'Mobility', value: 85, color: '#667eea' },
+    { label: 'Mobility', value: 85, color: '#44B8F3' },
     { label: 'Strength', value: 72, color: '#38B000' },
     { label: 'Pain Level', value: 25, color: '#FF6B6B' },
     { label: 'Flexibility', value: 68, color: '#FFD93D' },
@@ -208,7 +211,7 @@ const DashboardScreen = ({ navigation }) => {
       title: 'Progress Report Generated',
       time: 'Yesterday',
       icon: 'document-text',
-      color: '#667eea',
+      color: '#44B8F3',
     },
     {
       id: 3,
@@ -249,12 +252,13 @@ const DashboardScreen = ({ navigation }) => {
 
   const startExercise = (exercise) => {
     // Navigate to exercise detail screen
-    navigation.navigate('ExerciseDetail', { exercise });
+    navigation.navigate('ExerciseDetail', { exercise: JSON.stringify(exercise) });
   };
 
   const toggleExerciseComplete = (exerciseId) => {
     // Toggle completion status
     console.log('Toggle exercise:', exerciseId);
+    successPlayer.play();
   };
 
   // Header animation
@@ -275,7 +279,7 @@ const DashboardScreen = ({ navigation }) => {
       {/* Animated Header */}
       <Animated.View style={[styles.headerContainer, { height: headerHeight }]}>
         <LinearGradient
-          colors={['#667eea', '#764ba2']}
+          colors={['#44B8F3', '#2A9FD9']}
           style={styles.headerGradient}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
@@ -286,7 +290,7 @@ const DashboardScreen = ({ navigation }) => {
               <Text style={styles.userName}>Aditya</Text>
               <Text style={styles.userStatus}>Knee Rehabilitation • Week 3</Text>
             </View>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.profileButton}
               onPress={() => navigation.navigate('Profile')}
             >
@@ -325,7 +329,7 @@ const DashboardScreen = ({ navigation }) => {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={onRefresh}
-            tintColor="#667eea"
+            tintColor="#44B8F3"
           />
         }
         onScroll={Animated.event(
@@ -374,12 +378,12 @@ const DashboardScreen = ({ navigation }) => {
               <Text style={styles.sectionAction}>See All</Text>
             </TouchableOpacity>
           </View>
-          
+
           <View style={styles.exercisesCard}>
             {todaysExercises.map((exercise) => (
               <View key={exercise.id} style={styles.exerciseItem}>
                 {/* Video Thumbnail */}
-                <TouchableOpacity 
+                <TouchableOpacity
                   style={styles.videoThumbnail}
                   onPress={() => openVideoGuide(exercise)}
                   activeOpacity={0.8}
@@ -390,7 +394,7 @@ const DashboardScreen = ({ navigation }) => {
                   />
                   <View style={styles.playButtonOverlay}>
                     <LinearGradient
-                      colors={['rgba(102, 126, 234, 0.8)', 'rgba(118, 74, 162, 0.8)']}
+                      colors={['rgba(68, 184, 243, 0.8)', 'rgba(42, 159, 217, 0.8)']}
                       style={styles.playButton}
                     >
                       <Ionicons name="play" size={24} color="#fff" />
@@ -425,10 +429,10 @@ const DashboardScreen = ({ navigation }) => {
                       onPress={() => toggleExerciseComplete(exercise.id)}
                       style={styles.completeButton}
                     >
-                      <Ionicons 
-                        name={exercise.completed ? "checkmark-circle" : "ellipse-outline"} 
-                        size={24} 
-                        color={exercise.completed ? '#38B000' : '#ddd'} 
+                      <Ionicons
+                        name={exercise.completed ? "checkmark-circle" : "ellipse-outline"}
+                        size={24}
+                        color={exercise.completed ? '#38B000' : '#ddd'}
                       />
                     </TouchableOpacity>
                   </View>
@@ -439,9 +443,9 @@ const DashboardScreen = ({ navigation }) => {
                         {exercise.category}
                       </Text>
                     </View>
-                    
+
                     <View style={styles.exerciseActions}>
-                      <TouchableOpacity 
+                      <TouchableOpacity
                         style={styles.startExerciseButton}
                         onPress={() => startExercise(exercise)}
                       >
@@ -455,8 +459,8 @@ const DashboardScreen = ({ navigation }) => {
                           <Text style={styles.startButtonText}>Start</Text>
                         </LinearGradient>
                       </TouchableOpacity>
-                      
-                      <TouchableOpacity 
+
+                      <TouchableOpacity
                         style={styles.videoGuideButton}
                         onPress={() => openVideoGuide(exercise)}
                       >
@@ -506,14 +510,14 @@ const DashboardScreen = ({ navigation }) => {
               <Text style={styles.sectionAction}>View Details</Text>
             </TouchableOpacity>
           </View>
-          
+
           <View style={styles.progressCard}>
             <View style={styles.progressHeader}>
               <Text style={styles.progressTitle}>Overall Recovery</Text>
               <Text style={styles.progressPercent}>78%</Text>
             </View>
             <Text style={styles.progressSubtitle}>Excellent progress this week!</Text>
-            
+
             <View style={styles.progressBars}>
               {progressData.map((item, index) => (
                 <View key={index} style={styles.progressItem}>
@@ -522,14 +526,14 @@ const DashboardScreen = ({ navigation }) => {
                     <Text style={styles.progressValue}>{item.value}%</Text>
                   </View>
                   <View style={styles.progressBar}>
-                    <View 
+                    <View
                       style={[
                         styles.progressFill,
-                        { 
+                        {
                           width: `${item.value}%`,
                           backgroundColor: item.color
                         }
-                      ]} 
+                      ]}
                     />
                   </View>
                 </View>
@@ -546,7 +550,7 @@ const DashboardScreen = ({ navigation }) => {
               <Text style={styles.sectionAction}>View All</Text>
             </TouchableOpacity>
           </View>
-          
+
           <View style={styles.activityCard}>
             {recentActivity.map((activity) => (
               <View key={activity.id} style={styles.activityItem}>
@@ -573,7 +577,7 @@ const DashboardScreen = ({ navigation }) => {
               <Text style={styles.sectionAction}>View Calendar</Text>
             </TouchableOpacity>
           </View>
-          
+
           <View style={styles.upcomingCard}>
             {upcomingExercises.map((exercise) => (
               <View key={exercise.id} style={styles.upcomingItem}>
@@ -584,12 +588,12 @@ const DashboardScreen = ({ navigation }) => {
                 <View style={styles.upcomingDetails}>
                   <Text style={styles.upcomingTitle}>{exercise.title}</Text>
                   <View style={styles.upcomingTherapist}>
-                    <Ionicons name="person" size={12} color="#667eea" />
+                    <Ionicons name="person" size={12} color="#44B8F3" />
                     <Text style={styles.upcomingTherapistText}>{exercise.therapist}</Text>
                   </View>
                 </View>
                 <TouchableOpacity style={styles.reminderButton}>
-                  <Ionicons name="notifications" size={18} color="#667eea" />
+                  <Ionicons name="notifications" size={18} color="#44B8F3" />
                 </TouchableOpacity>
               </View>
             ))}
@@ -609,7 +613,7 @@ const DashboardScreen = ({ navigation }) => {
           </View>
           <View style={styles.footerStatDivider} />
           <View style={styles.footerStatItem}>
-            <Ionicons name="time" size={20} color="#667eea" />
+            <Ionicons name="time" size={20} color="#44B8F3" />
             <Text style={styles.footerStatText}>24h Total</Text>
           </View>
         </View>
@@ -626,7 +630,7 @@ const DashboardScreen = ({ navigation }) => {
           <View style={styles.modalContainer}>
             {/* Modal Header */}
             <LinearGradient
-              colors={['#667eea', '#764ba2']}
+              colors={['#44B8F3', '#2A9FD9']}
               style={styles.modalHeader}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
@@ -635,7 +639,7 @@ const DashboardScreen = ({ navigation }) => {
                 <Text style={styles.modalTitle} numberOfLines={1}>
                   {selectedExercise?.name}
                 </Text>
-                <TouchableOpacity 
+                <TouchableOpacity
                   style={styles.modalClose}
                   onPress={() => setShowVideoModal(false)}
                 >
@@ -647,13 +651,9 @@ const DashboardScreen = ({ navigation }) => {
             {/* Video Player */}
             {selectedExercise && (
               <View style={styles.videoContainer}>
-                <Video
-                  ref={videoRef}
-                  source={{ uri: selectedExercise.videoUrl }}
+                <ExerciseVideoPlayer
+                  videoUrl={selectedExercise.videoUrl}
                   style={styles.videoPlayer}
-                  useNativeControls
-                  resizeMode="cover"
-                  isLooping
                 />
               </View>
             )}
@@ -663,17 +663,17 @@ const DashboardScreen = ({ navigation }) => {
               <ScrollView style={styles.exerciseDetailsModal}>
                 <View style={styles.exerciseStats}>
                   <View style={styles.statItemModal}>
-                    <Ionicons name="time" size={20} color="#667eea" />
+                    <Ionicons name="time" size={20} color="#44B8F3" />
                     <Text style={styles.statLabelModal}>Duration</Text>
                     <Text style={styles.statValueModal}>{selectedExercise.duration}</Text>
                   </View>
                   <View style={styles.statItemModal}>
-                    <Ionicons name="barbell" size={20} color="#667eea" />
+                    <Ionicons name="barbell" size={20} color="#44B8F3" />
                     <Text style={styles.statLabelModal}>Difficulty</Text>
                     <Text style={styles.statValueModal}>{selectedExercise.difficulty}</Text>
                   </View>
                   <View style={styles.statItemModal}>
-                    <Ionicons name="flame" size={20} color="#667eea" />
+                    <Ionicons name="flame" size={20} color="#44B8F3" />
                     <Text style={styles.statLabelModal}>Calories</Text>
                     <Text style={styles.statValueModal}>{selectedExercise.calories}</Text>
                   </View>
@@ -693,13 +693,13 @@ const DashboardScreen = ({ navigation }) => {
 
                 <View style={styles.therapistInfo}>
                   <View style={styles.therapistHeader}>
-                    <Ionicons name="person" size={20} color="#667eea" />
+                    <Ionicons name="person" size={20} color="#44B8F3" />
                     <Text style={styles.therapistTitle}>Therapist</Text>
                   </View>
                   <Text style={styles.therapistName}>{selectedExercise.therapist}</Text>
                 </View>
 
-                <TouchableOpacity 
+                <TouchableOpacity
                   style={styles.startNowButton}
                   onPress={() => {
                     setShowVideoModal(false);
@@ -707,7 +707,7 @@ const DashboardScreen = ({ navigation }) => {
                   }}
                 >
                   <LinearGradient
-                    colors={[selectedExercise?.color || '#667eea', selectedExercise?.color + 'CC' || '#764ba2']}
+                    colors={[selectedExercise?.color || '#44B8F3', selectedExercise?.color + 'CC' || '#2A9FD9']}
                     style={styles.startNowGradient}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 1 }}
@@ -781,7 +781,7 @@ const styles = StyleSheet.create({
   avatarText: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#667eea',
+    color: '#44B8F3',
   },
   statsOverview: {
     flexDirection: 'row',
@@ -833,7 +833,7 @@ const styles = StyleSheet.create({
   },
   sectionAction: {
     fontSize: 14,
-    color: '#667eea',
+    color: '#44B8F3',
     fontWeight: '600',
   },
   statsScroll: {
@@ -1095,7 +1095,7 @@ const styles = StyleSheet.create({
   progressPercent: {
     fontSize: 32,
     fontWeight: '700',
-    color: '#667eea',
+    color: '#44B8F3',
   },
   progressSubtitle: {
     fontSize: 14,
@@ -1227,14 +1227,14 @@ const styles = StyleSheet.create({
   },
   upcomingTherapistText: {
     fontSize: 12,
-    color: '#667eea',
+    color: '#44B8F3',
     marginLeft: 5,
   },
   reminderButton: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+    backgroundColor: 'rgba(68, 184, 243, 0.1)',
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 10,
@@ -1361,7 +1361,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     borderRadius: 15,
-    backgroundColor: '#667eea',
+    backgroundColor: '#44B8F3',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 15,

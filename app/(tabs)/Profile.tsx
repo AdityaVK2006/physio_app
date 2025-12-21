@@ -70,7 +70,7 @@ const ProfileScreen = ({ navigation }) => {
 
   return (
     <LinearGradient
-      colors={['#667eea', '#764ba2', '#667eea']}
+      colors={['#44B8F3', '#2A9FD9', '#44B8F3']}
       style={styles.gradientContainer}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
@@ -103,7 +103,7 @@ const ProfileScreen = ({ navigation }) => {
         {/* Profile Card */}
         <View style={styles.profileCard}>
           <LinearGradient
-            colors={['#667eea', '#764ba2']}
+            colors={['#44B8F3', '#2A9FD9']}
             style={styles.profileGradient}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
@@ -115,7 +115,7 @@ const ProfileScreen = ({ navigation }) => {
                   <Text style={styles.avatarText}>AJ</Text>
                 </View>
                 <TouchableOpacity style={styles.cameraButton}>
-                  <Ionicons name="camera" size={20} color="#667eea" />
+                  <Ionicons name="camera" size={20} color="#44B8F3" />
                 </TouchableOpacity>
               </View>
               
@@ -161,7 +161,7 @@ const ProfileScreen = ({ navigation }) => {
         {/* Personal Information */}
         <View style={styles.sectionContainer}>
           <View style={styles.sectionHeader}>
-            <Ionicons name="person-circle" size={24} color="#667eea" />
+            <Ionicons name="person-circle" size={24} color="#44B8F3" />
             <Text style={styles.sectionTitle}>Personal Information</Text>
           </View>
 
@@ -176,7 +176,7 @@ const ProfileScreen = ({ navigation }) => {
             ].map((item, index) => (
               <View key={index} style={styles.infoItem}>
                 <View style={styles.infoIcon}>
-                  <Ionicons name={item.icon} size={18} color="#667eea" />
+                  <Ionicons name={item.icon} size={18} color="#44B8F3" />
                 </View>
                 <View style={styles.infoContent}>
                   <Text style={styles.infoLabel}>{item.label}</Text>
@@ -206,7 +206,7 @@ const ProfileScreen = ({ navigation }) => {
             {achievements.map((achievement, index) => (
               <View key={index} style={styles.achievementCard}>
                 <View style={styles.achievementIcon}>
-                  <Ionicons name={achievement.icon} size={24} color="#667eea" />
+                  <Ionicons name={achievement.icon} size={24} color="#44B8F3" />
                 </View>
                 <Text style={styles.achievementCount}>{achievement.count}</Text>
                 <Text style={styles.achievementTitle}>{achievement.title}</Text>
@@ -218,7 +218,7 @@ const ProfileScreen = ({ navigation }) => {
         {/* Preferences */}
         {/* <View style={styles.sectionContainer}>
           <View style={styles.sectionHeader}>
-            <Ionicons name="settings" size={24} color="#667eea" />
+            <Ionicons name="settings" size={24} color="#44B8F3" />
             <Text style={styles.sectionTitle}>Preferences</Text>
           </View>
 
@@ -231,11 +231,11 @@ const ProfileScreen = ({ navigation }) => {
           ].map((pref, index) => (
             <View key={index} style={styles.preferenceItem}>
               <View style={styles.preferenceLeft}>
-                <View style={[styles.preferenceIcon, { backgroundColor: `${preferences[pref.key] ? '#667eea20' : '#f0f0f0'}` }]}>
+                <View style={[styles.preferenceIcon, { backgroundColor: `${preferences[pref.key] ? '#44B8F320' : '#f0f0f0'}` }]}>
                   <Ionicons 
                     name={pref.icon} 
                     size={20} 
-                    color={preferences[pref.key] ? '#667eea' : '#666'} 
+                    color={preferences[pref.key] ? '#44B8F3' : '#666'} 
                   />
                 </View>
                 <View style={styles.preferenceInfo}>
@@ -246,7 +246,7 @@ const ProfileScreen = ({ navigation }) => {
               <Switch
                 value={preferences[pref.key]}
                 onValueChange={() => handlePreferenceToggle(pref.key)}
-                trackColor={{ false: '#ddd', true: '#667eea' }}
+                trackColor={{ false: '#ddd', true: '#44B8F3' }}
                 thumbColor="#fff"
               />
             </View>
@@ -256,7 +256,7 @@ const ProfileScreen = ({ navigation }) => {
         {/* Menu Items */}
         {/* <View style={styles.sectionContainer}>
           <View style={styles.sectionHeader}>
-            <Ionicons name="menu" size={24} color="#667eea" />
+            <Ionicons name="menu" size={24} color="#44B8F3" />
             <Text style={styles.sectionTitle}>More Options</Text>
           </View>
 
@@ -264,7 +264,7 @@ const ProfileScreen = ({ navigation }) => {
             <TouchableOpacity key={index} style={styles.menuItem}>
               <View style={styles.menuLeft}>
                 <View style={styles.menuIcon}>
-                  <Ionicons name={item.icon} size={22} color="#667eea" />
+                  <Ionicons name={item.icon} size={22} color="#44B8F3" />
                 </View>
                 <View style={styles.menuInfo}>
                   <Text style={styles.menuTitle}>{item.title}</Text>
@@ -279,7 +279,7 @@ const ProfileScreen = ({ navigation }) => {
         {/* Account Details */}
         {/* <View style={styles.sectionContainer}>
           <View style={styles.sectionHeader}>
-            <Ionicons name="card" size={24} color="#667eea" />
+            <Ionicons name="card" size={24} color="#44B8F3" />
             <Text style={styles.sectionTitle}>Account Details</Text>
           </View>
 
@@ -401,7 +401,7 @@ const styles = StyleSheet.create({
   avatarText: {
     fontSize: 36,
     fontWeight: '700',
-    color: '#667eea',
+    color: '#44B8F3',
   },
   cameraButton: {
     position: 'absolute',
@@ -520,7 +520,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 12,
-    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+    backgroundColor: 'rgba(68, 184, 243, 0.1)',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
@@ -570,7 +570,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+    backgroundColor: 'rgba(68, 184, 243, 0.1)',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
@@ -637,7 +637,7 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 12,
-    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+    backgroundColor: 'rgba(68, 184, 243, 0.1)',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 15,
@@ -685,14 +685,14 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   premiumBadge: {
-    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+    backgroundColor: 'rgba(68, 184, 243, 0.1)',
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 15,
   },
   premiumText: {
     fontSize: 12,
-    color: '#667eea',
+    color: '#44B8F3',
     fontWeight: '600',
   },
   logoutButton: {

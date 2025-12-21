@@ -103,7 +103,7 @@ const AuthScreen = () => {
 
   return (
     <LinearGradient
-      colors={['#667eea', '#764ba2', '#667eea']}
+      colors={['#44B8F3', '#2A9FD9', '#44B8F3']}
       style={styles.gradientContainer}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
@@ -208,7 +208,7 @@ const AuthScreen = () => {
                 style={styles.inputContainer}
               >
                 <View style={styles.inputWrapper}>
-                  <Ionicons name="person" size={20} color="#8a2be2" style={styles.inputIcon} />
+                  <Ionicons name="person" size={20} color="#44B8F3" style={styles.inputIcon} />
                   <TextInput
                     style={styles.input}
                     placeholder="Full Name"
@@ -232,7 +232,7 @@ const AuthScreen = () => {
               style={styles.inputContainer}
             >
               <View style={styles.inputWrapper}>
-                <Ionicons name="mail" size={20} color="#8a2be2" style={styles.inputIcon} />
+                <Ionicons name="mail" size={20} color="#44B8F3" style={styles.inputIcon} />
                 <TextInput
                   style={styles.input}
                   placeholder="Email Address"
@@ -257,7 +257,7 @@ const AuthScreen = () => {
               style={styles.inputContainer}
             >
               <View style={styles.inputWrapper}>
-                <Ionicons name="lock-closed" size={20} color="#8a2be2" style={styles.inputIcon} />
+                <Ionicons name="lock-closed" size={20} color="#44B8F3" style={styles.inputIcon} />
                 <TextInput
                   style={styles.input}
                   placeholder="Password"
@@ -270,7 +270,7 @@ const AuthScreen = () => {
                   <Ionicons 
                     name={showPassword ? "eye-off" : "eye"} 
                     size={20} 
-                    color="#8a2be2" 
+                    color="#44B8F3" 
                   />
                 </TouchableOpacity>
               </View>
@@ -296,7 +296,7 @@ const AuthScreen = () => {
                 style={styles.inputContainer}
               >
                 <View style={styles.inputWrapper}>
-                  <Ionicons name="lock-closed" size={20} color="#8a2be2" style={styles.inputIcon} />
+                  <Ionicons name="lock-closed" size={20} color="#44B8F3" style={styles.inputIcon} />
                   <TextInput
                     style={styles.input}
                     placeholder="Confirm Password"
@@ -309,7 +309,7 @@ const AuthScreen = () => {
                     <Ionicons 
                       name={showConfirmPassword ? "eye-off" : "eye"} 
                       size={20} 
-                      color="#8a2be2" 
+                      color="#44B8F3" 
                     />
                   </TouchableOpacity>
                 </View>
@@ -339,7 +339,7 @@ const AuthScreen = () => {
                 activeOpacity={0.9}
               >
                 <LinearGradient
-                  colors={['#8a2be2', '#667eea', '#8a2be2']}
+                  colors={['#44B8F3', '#2A9FD9', '#44B8F3']}
                   start={{ x: 0, y: 0 }}
                   end={{ x: 1, y: 0 }}
                   style={styles.buttonGradient}
@@ -551,7 +551,7 @@ const styles = StyleSheet.create({
     marginBottom: 25,
   },
   forgotPasswordText: {
-    color: '#8a2be2',
+    color: '#44B8F3',
     fontSize: 14,
     fontWeight: '500',
   },
@@ -561,7 +561,7 @@ const styles = StyleSheet.create({
   authButton: {
     borderRadius: 15,
     overflow: 'hidden',
-    shadowColor: '#8a2be2',
+    shadowColor: '#44B8F3',
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.3,
     shadowRadius: 15,
@@ -630,7 +630,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   switchLink: {
-    color: '#8a2be2',
+    color: '#44B8F3',
     fontSize: 14,
     fontWeight: '700',
     marginLeft: 5,
@@ -645,7 +645,7 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
   termsLink: {
-    color: '#8a2be2',
+    color: '#44B8F3',
     fontWeight: '600',
   },
   waveContainer: {

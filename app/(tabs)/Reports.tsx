@@ -36,7 +36,7 @@ const ReportsScreen = ({ navigation }) => {
       status: 'completed',
       fileSize: '2.4 MB',
       summary: 'Excellent progress in knee mobility. Continue with current exercises.',
-      color: '#667eea',
+      color: '#44B8F3',
       metrics: {
         recovery: 85,
         adherence: 92,
@@ -104,7 +104,7 @@ const ReportsScreen = ({ navigation }) => {
       status: 'completed',
       fileSize: '2.1 MB',
       summary: 'Steady improvement observed. Maintain current regimen.',
-      color: '#8a2be2',
+      color: '#3BA8E0',
       metrics: {
         recovery: 60,
         adherence: 90,
@@ -145,7 +145,7 @@ const ReportsScreen = ({ navigation }) => {
       case 'completed': return '#38B000';
       case 'pending': return '#FFD93D';
       case 'failed': return '#FF6B6B';
-      default: return '#667eea';
+      default: return '#44B8F3';
     }
   };
 
@@ -154,13 +154,13 @@ const ReportsScreen = ({ navigation }) => {
       case 'completed': return 'rgba(56, 176, 0, 0.1)';
       case 'pending': return 'rgba(255, 217, 61, 0.1)';
       case 'failed': return 'rgba(255, 107, 107, 0.1)';
-      default: return 'rgba(102, 126, 234, 0.1)';
+      default: return 'rgba(68, 184, 243, 0.1)';
     }
   };
 
   return (
     <LinearGradient
-      colors={['#667eea', '#764ba2', '#667eea']}
+      colors={['#44B8F3', '#2A9FD9', '#44B8F3']}
       style={styles.gradientContainer}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
@@ -186,7 +186,7 @@ const ReportsScreen = ({ navigation }) => {
         {/* Quick Stats */}
         <View style={styles.statsContainer}>
           {[
-            { label: 'Total Reports', value: stats.totalReports, icon: 'document-text', color: '#667eea' },
+            { label: 'Total Reports', value: stats.totalReports, icon: 'document-text', color: '#44B8F3' },
             { label: 'Monthly Avg', value: stats.monthlyAvg, icon: 'calendar', color: '#38B000' },
             { label: 'Compliance', value: stats.complianceRate, icon: 'checkmark-circle', color: '#FFD93D' },
             { label: 'Last Report', value: stats.lastReport, icon: 'time', color: '#FF6B6B' },
@@ -376,7 +376,7 @@ const ReportsScreen = ({ navigation }) => {
         <View style={styles.modalOverlay}>
           <View style={styles.modalContainer}>
             <LinearGradient
-              colors={['#667eea', '#764ba2']}
+              colors={['#44B8F3', '#2A9FD9']}
               style={styles.modalHeader}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
@@ -424,7 +424,7 @@ const ReportsScreen = ({ navigation }) => {
                     <Progress.Circle 
                       size={60} 
                       indeterminate={true} 
-                      color="#667eea" 
+                      color="#44B8F3" 
                     />
                     <Text style={styles.generatingText}>Generating Report...</Text>
                   </View>
@@ -434,7 +434,7 @@ const ReportsScreen = ({ navigation }) => {
                     onPress={handleGenerateReport}
                   >
                     <LinearGradient
-                      colors={['#667eea', '#764ba2']}
+                      colors={['#44B8F3', '#2A9FD9']}
                       style={styles.generateModalGradient}
                       start={{ x: 0, y: 0 }}
                       end={{ x: 1, y: 1 }}
@@ -554,7 +554,7 @@ const styles = StyleSheet.create({
   },
   sectionSubtitle: {
     fontSize: 14,
-    color: '#667eea',
+    color: '#44B8F3',
     fontWeight: '600',
   },
   sectionCount: {
@@ -564,7 +564,7 @@ const styles = StyleSheet.create({
   generateButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#667eea',
+    backgroundColor: '#44B8F3',
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 15,
@@ -632,7 +632,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   filterButtonActive: {
-    backgroundColor: '#667eea',
+    backgroundColor: '#44B8F3',
   },
   filterText: {
     fontSize: 14,
@@ -813,7 +813,7 @@ const styles = StyleSheet.create({
   },
   viewAllText: {
     fontSize: 14,
-    color: '#667eea',
+    color: '#44B8F3',
     fontWeight: '600',
   },
   exportOptions: {
@@ -941,7 +941,7 @@ const styles = StyleSheet.create({
   },
   generatingText: {
     fontSize: 16,
-    color: '#667eea',
+    color: '#44B8F3',
     marginTop: 20,
     fontWeight: '600',
   },

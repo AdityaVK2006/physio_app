@@ -22,11 +22,11 @@ const ExercisesScreen = ({ navigation }) => {
 
   const categories = [
     { id: 'all', name: 'All', icon: 'apps', count: 24 },
-    { id: 'knee', name: 'Knee', icon: 'body', count: 8, color: '#667eea' },
+    { id: 'knee', name: 'Knee', icon: 'body', count: 8, color: '#44B8F3' },
     { id: 'shoulder', name: 'Shoulder', icon: 'body', count: 6, color: '#FF6B6B' },
     { id: 'back', name: 'Back', icon: 'body', count: 5, color: '#38B000' },
     { id: 'neck', name: 'Neck', icon: 'body', count: 3, color: '#FFD93D' },
-    { id: 'wrist', name: 'Wrist', icon: 'body', count: 2, color: '#8a2be2' },
+    { id: 'wrist', name: 'Wrist', icon: 'body', count: 2, color: '#3BA8E0' },
   ];
 
   const exercises = [
@@ -41,8 +41,8 @@ const ExercisesScreen = ({ navigation }) => {
       description: 'Improve knee flexibility and range of motion',
       completed: true,
       favorite: true,
-      color: '#667eea',
-      videoUrl: '',
+      color: '#44B8F3',
+      videoUrl: 'https://www.youtube.com/watch?v=mi2fZ-NgSrk',
       instructions: [
         'Sit on a chair with back straight',
         'Slowly bend your knee as far as possible',
@@ -62,7 +62,7 @@ const ExercisesScreen = ({ navigation }) => {
       completed: false,
       favorite: false,
       color: '#FF6B6B',
-      videoUrl: '',
+      videoUrl: 'https://www.youtube.com/watch?v=XIdXFzE4hDk',
       instructions: [
         'Stand with feet shoulder-width apart',
         'Rotate shoulders forward in circular motion',
@@ -82,7 +82,7 @@ const ExercisesScreen = ({ navigation }) => {
       completed: true,
       favorite: true,
       color: '#38B000',
-      videoUrl: '',
+      videoUrl: 'https://www.youtube.com/watch?v=H74vVbX60pM',
       instructions: [
         'Lie on your stomach',
         'Place hands behind your head',
@@ -102,7 +102,7 @@ const ExercisesScreen = ({ navigation }) => {
       completed: false,
       favorite: false,
       color: '#FFD93D',
-      videoUrl: '',
+      videoUrl: 'https://www.youtube.com/watch?v=18m7LTe_Tnk',
       instructions: [
         'Sit or stand with good posture',
         'Slowly tilt head toward each shoulder',
@@ -121,7 +121,7 @@ const ExercisesScreen = ({ navigation }) => {
       description: 'Improve wrist flexibility and reduce strain',
       completed: true,
       favorite: false,
-      color: '#8a2be2',
+      color: '#3BA8E0',
       videoUrl: '',
       instructions: [
         'Extend arm with palm facing up',
@@ -141,7 +141,7 @@ const ExercisesScreen = ({ navigation }) => {
       description: 'Stretch quadriceps muscles for knee support',
       completed: false,
       favorite: false,
-      color: '#667eea',
+      color: '#44B8F3',
       videoUrl: '',
       instructions: [
         'Stand holding onto a chair',
@@ -152,16 +152,16 @@ const ExercisesScreen = ({ navigation }) => {
     },
   ];
 
-  const filteredExercises = selectedCategory === 'All' 
-    ? exercises.filter(ex => 
-        ex.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        ex.description.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : exercises.filter(ex => 
-        ex.category === selectedCategory &&
-        (ex.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-         ex.description.toLowerCase().includes(searchQuery.toLowerCase()))
-      );
+  const filteredExercises = selectedCategory === 'All'
+    ? exercises.filter(ex =>
+      ex.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      ex.description.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    : exercises.filter(ex =>
+      ex.category === selectedCategory &&
+      (ex.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        ex.description.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
 
   const toggleFavorite = (exerciseId) => {
     if (favorites.includes(exerciseId)) {
@@ -172,17 +172,17 @@ const ExercisesScreen = ({ navigation }) => {
   };
 
   const startExercise = (exercise) => {
-    navigation.navigate('ExerciseDetail', { exercise });
+    navigation.navigate('ExerciseDetail', { exercise: JSON.stringify(exercise) });
   };
 
   return (
     <LinearGradient
-      colors={['#667eea', '#764ba2', '#667eea']}
+      colors={['#44B8F3', '#2A9FD9', '#44B8F3']}
       style={styles.gradientContainer}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
     >
-      <ScrollView 
+      <ScrollView
         style={styles.container}
         showsVerticalScrollIndicator={false}
       >
@@ -192,7 +192,7 @@ const ExercisesScreen = ({ navigation }) => {
             <Text style={styles.title}>Exercises</Text>
             <Text style={styles.subtitle}>Your personalized therapy exercises</Text>
           </View>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.statsButton}
             onPress={() => navigation.navigate('Progress')}
           >
@@ -229,8 +229,8 @@ const ExercisesScreen = ({ navigation }) => {
             <Text style={styles.sectionCount}>{exercises.length} exercises</Text>
           </View>
 
-          <ScrollView 
-            horizontal 
+          <ScrollView
+            horizontal
             showsHorizontalScrollIndicator={false}
             style={styles.categoriesScroll}
           >
@@ -244,8 +244,8 @@ const ExercisesScreen = ({ navigation }) => {
                 onPress={() => setSelectedCategory(category.name)}
               >
                 <LinearGradient
-                  colors={selectedCategory === category.name 
-                    ? category.id === 'all' ? ['#667eea', '#764ba2'] : [category.color, category.color + 'CC']
+                  colors={selectedCategory === category.name
+                    ? category.id === 'all' ? ['#44B8F3', '#2A9FD9'] : [category.color, category.color + 'CC']
                     : ['rgba(24, 23, 23, 0.1)', 'rgba(26, 19, 19, 0.05)']
                   }
                   style={styles.categoryGradient}
@@ -256,10 +256,10 @@ const ExercisesScreen = ({ navigation }) => {
                     styles.categoryIcon,
                     { backgroundColor: selectedCategory === category.name ? '#fff' : 'rgba(255, 255, 255, 0.1)' }
                   ]}>
-                    <Ionicons 
-                      name={category.icon} 
-                      size={24} 
-                      color={selectedCategory === category.name ? category.id === 'all' ? '#667eea' : category.color : '#fff'} 
+                    <Ionicons
+                      name={category.icon}
+                      size={24}
+                      color={selectedCategory === category.name ? category.id === 'all' ? '#44B8F3' : category.color : '#fff'}
                     />
                   </View>
                   <Text style={[
@@ -295,7 +295,7 @@ const ExercisesScreen = ({ navigation }) => {
           </View>
 
           {filteredExercises.map((exercise) => (
-            <TouchableOpacity 
+            <TouchableOpacity
               key={exercise.id}
               style={styles.exerciseCard}
               activeOpacity={0.9}
@@ -305,26 +305,26 @@ const ExercisesScreen = ({ navigation }) => {
                 <View style={[styles.exerciseIcon, { backgroundColor: exercise.color + '20' }]}>
                   <Ionicons name="fitness" size={24} color={exercise.color} />
                 </View>
-                
+
                 <View style={styles.exerciseInfo}>
                   <View style={styles.exerciseTitleRow}>
                     <Text style={styles.exerciseName}>{exercise.name}</Text>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                       onPress={(e) => {
                         e.stopPropagation();
                         toggleFavorite(exercise.id);
                       }}
                     >
-                      <Ionicons 
-                        name={favorites.includes(exercise.id) ? "heart" : "heart-outline"} 
-                        size={22} 
-                        color={favorites.includes(exercise.id) ? '#FF6B6B' : '#999'} 
+                      <Ionicons
+                        name={favorites.includes(exercise.id) ? "heart" : "heart-outline"}
+                        size={22}
+                        color={favorites.includes(exercise.id) ? '#FF6B6B' : '#999'}
                       />
                     </TouchableOpacity>
                   </View>
-                  
+
                   <Text style={styles.exerciseDescription}>{exercise.description}</Text>
-                  
+
                   <View style={styles.exerciseMeta}>
                     <View style={styles.metaItem}>
                       <Ionicons name="time" size={14} color="#666" />
@@ -365,7 +365,7 @@ const ExercisesScreen = ({ navigation }) => {
                       </Text>
                     </View>
                   ) : (
-                    <TouchableOpacity 
+                    <TouchableOpacity
                       style={styles.startButton}
                       onPress={(e) => {
                         e.stopPropagation();
@@ -383,7 +383,7 @@ const ExercisesScreen = ({ navigation }) => {
                       </LinearGradient>
                     </TouchableOpacity>
                   )}
-                  
+
                   <TouchableOpacity style={styles.detailsButton}>
                     <Text style={styles.detailsButtonText}>Details</Text>
                   </TouchableOpacity>
@@ -402,7 +402,7 @@ const ExercisesScreen = ({ navigation }) => {
 
           <View style={styles.featuredCard}>
             <LinearGradient
-              colors={['#667eea', '#764ba2']}
+              colors={['#44B8F3', '#2A9FD9']}
               style={styles.featuredGradient}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
@@ -417,7 +417,7 @@ const ExercisesScreen = ({ navigation }) => {
                     Comprehensive routine for overall flexibility and joint health
                   </Text>
                 </View>
-                
+
                 <TouchableOpacity style={styles.featuredButton}>
                   <Ionicons name="play-circle" size={28} color="#fff" />
                   <Text style={styles.featuredButtonText}>Start Routine</Text>
@@ -438,7 +438,7 @@ const ExercisesScreen = ({ navigation }) => {
           </View>
           <View style={styles.statDivider} />
           <View style={styles.statItem}>
-            <Ionicons name="time" size={24} color="#667eea" />
+            <Ionicons name="time" size={24} color="#44B8F3" />
             <View style={styles.statContent}>
               <Text style={styles.statValue}>4h 20m</Text>
               <Text style={styles.statLabel}>Total Time</Text>
@@ -555,7 +555,7 @@ const styles = StyleSheet.create({
   },
   sectionCount: {
     fontSize: 14,
-    color: '#667eea',
+    color: '#44B8F3',
     fontWeight: '600',
   },
   categoriesScroll: {
