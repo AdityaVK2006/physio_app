@@ -85,6 +85,7 @@ const DashboardScreen = ({ navigation }) => {
       calories: '45',
       completed: true,
       color: '#44B8F3',
+      diff: 'green',
       videoUrl: 'https://www.youtube.com/watch?v=mi2fZ-NgSrk',
       thumbnail: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop',
       instructions: [
@@ -104,7 +105,8 @@ const DashboardScreen = ({ navigation }) => {
       sets: '3 sets × 15 reps',
       calories: '60',
       completed: false,
-      color: '#FF6B6B',
+      color: '#44B8F3',
+      diff: 'orange',
       videoUrl: 'https://www.youtube.com/watch?v=XIdXFzE4hDk',
       thumbnail: 'https://plus.unsplash.com/premium_photo-1661265933107-85a5feec7ef1?w=800&auto=format&fit=crop',
       instructions: [
@@ -124,7 +126,8 @@ const DashboardScreen = ({ navigation }) => {
       sets: '4 sets × 12 reps',
       calories: '75',
       completed: false,
-      color: '#38B000',
+      diff: 'red',
+      color: '#44B8F3',
       videoUrl: 'https://www.youtube.com/watch?v=H74vVbX60pM',
       thumbnail: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&auto=format&fit=crop',
       instructions: [
@@ -144,7 +147,8 @@ const DashboardScreen = ({ navigation }) => {
       sets: '2 sets × 10 reps',
       calories: '30',
       completed: true,
-      color: '#FFD93D',
+      diff: 'green',
+      color: '#44B8F3',
       videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-woman-doing-stretching-exercises-43506-large.mp4',
       thumbnail: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w-800&auto=format&fit=crop',
       instructions: [
@@ -156,6 +160,8 @@ const DashboardScreen = ({ navigation }) => {
       therapist: 'Dr. James Wilson',
     },
   ];
+
+  
 
   // Quick Actions
   const quickActions = [
@@ -413,7 +419,7 @@ const DashboardScreen = ({ navigation }) => {
                       <View style={styles.exerciseMeta}>
                         <View style={styles.metaItem}>
                           <Ionicons name="barbell" size={12} color="#666" />
-                          <Text style={styles.metaText}>{exercise.difficulty}</Text>
+                          <Text style={[styles.metaText, {color: exercise.diff}]}>{exercise.difficulty}</Text>
                         </View>
                         <View style={styles.metaItem}>
                           <Ionicons name="repeat" size={12} color="#666" />
@@ -473,31 +479,6 @@ const DashboardScreen = ({ navigation }) => {
                   </View>
                 </View>
               </View>
-            ))}
-          </View>
-        </View>
-
-        {/* Quick Actions */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Quick Actions</Text>
-          <View style={styles.actionsGrid}>
-            {quickActions.map((action) => (
-              <TouchableOpacity
-                key={action.id}
-                style={styles.actionCard}
-                onPress={() => navigation.navigate(action.screen)}
-                activeOpacity={0.7}
-              >
-                <LinearGradient
-                  colors={[action.color + '20', action.color + '10']}
-                  style={styles.actionIconContainer}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                >
-                  <Ionicons name={action.icon} size={24} color={action.color} />
-                </LinearGradient>
-                <Text style={styles.actionTitle}>{action.title}</Text>
-              </TouchableOpacity>
             ))}
           </View>
         </View>

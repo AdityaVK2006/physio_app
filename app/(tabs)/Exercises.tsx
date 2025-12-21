@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 const { width } = Dimensions.get("window");
 
@@ -526,7 +527,11 @@ const ExercisesScreen = ({ navigation }) => {
                   </Text>
                 </View>
 
-                <TouchableOpacity style={styles.featuredButton}>
+                <TouchableOpacity style={styles.featuredButton}
+                  onPress={() =>{
+                    router.push('/')
+                  }}
+                  >
                   <Ionicons name="play-circle" size={28} color="#fff" />
                   <Text style={styles.featuredButtonText}>Start Routine</Text>
                 </TouchableOpacity>
