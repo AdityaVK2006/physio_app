@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
+import * as Linking from 'expo-linking';
 
 const { width } = Dimensions.get("window");
 
@@ -477,10 +478,11 @@ const ExercisesScreen = ({ navigation }: any) => {
                   ) : (
                     <TouchableOpacity
                       style={styles.startButton}
-                      onPress={(e) => {
-                        e.stopPropagation();
-                        startExercise(exercise);
-                      }}
+                      onPress={() => {
+                                    // Replace this URL with the public URL where you host `GymTrainerHTML` (e.g. GitHub Pages, S3, or a tunnel URL)
+                                    const GYM_TRAINER_URL = 'https://adityavk2006.github.io/GymLogic/';
+                                    Linking.openURL(GYM_TRAINER_URL);
+                                  }}
                     >
                       <LinearGradient
                         colors={[exercise.color, exercise.color + "CC"]}
