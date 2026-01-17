@@ -1,7 +1,7 @@
 import React from "react";
 import { WebView } from "react-native-webview";
 
-const GymTrainerHTML = `
+export const GymTrainerHTML = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -251,7 +251,7 @@ export default function GymLogic() {
       javaScriptEnabled
       allowsInlineMediaPlayback
       mediaPlaybackRequiresUserAction={false}
-      style={{ flex: 1, backgroundColor: 'transparent' }}
+      style={{ flex: 1, backgroundColor: "transparent" }}
     />
   );
 }

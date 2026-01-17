@@ -1,35 +1,33 @@
 // screens/ProfileScreen.js
-import React, { useState } from 'react';
+import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
+import React, { useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
   Dimensions,
-  Switch,
+  ScrollView,
+  StyleSheet,
+  Text,
   TextInput,
-  Image,
-} from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Ionicons } from '@expo/vector-icons';
+  TouchableOpacity,
+  View
+} from "react-native";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = ({ navigation }: any) => {
   const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState({
-    name: 'Aditya Katepallewar',
-    email: 'alex.johnson@example.com',
-    phone: '+1 (555) 123-4567',
-    age: '35',
-    weight: '75 kg',
-    height: '175 cm',
-    condition: 'Knee Rehabilitation',
-    therapist: 'Dr. Sarah Chen',
-    membership: 'Premium',
-    memberSince: '2023',
-    nextAppointment: 'Tomorrow, 10:00 AM',
+    name: "Aditya Katepallewar",
+    email: "alex.johnson@example.com",
+    phone: "+1 (555) 123-4567",
+    age: "35",
+    weight: "75 kg",
+    height: "175 cm",
+    condition: "Knee Rehabilitation",
+    therapist: "Dr. Sarah Chen",
+    membership: "Premium",
+    memberSince: "2023",
+    nextAppointment: "Tomorrow, 10:00 AM",
   });
 
   const [preferences, setPreferences] = useState({
@@ -41,44 +39,65 @@ const ProfileScreen = ({ navigation }) => {
   });
 
   const achievements = [
-    { icon: 'trophy', title: '30-Day Streak', count: 1 },
-    { icon: 'star', title: 'Perfect Sessions', count: 12 },
-    { icon: 'checkmark-circle', title: 'Exercises Completed', count: 45 },
-    { icon: 'flame', title: 'Calories Burned', count: '5.2k' },
+    { icon: "trophy", title: "30-Day Streak", count: 1 },
+    { icon: "star", title: "Perfect Sessions", count: 12 },
+    { icon: "checkmark-circle", title: "Exercises Completed", count: 45 },
+    { icon: "flame", title: "Calories Burned", count: "5.2k" },
   ];
 
   const menuItems = [
-    { icon: 'settings', title: 'App Settings', description: 'Customize your app experience' },
-    { icon: 'shield-checkmark', title: 'Privacy & Security', description: 'Manage your data and security' },
-    { icon: 'document-text', title: 'Medical Records', description: 'View and manage medical history' },
-    { icon: 'calendar', title: 'Appointment History', description: 'Past and upcoming sessions' },
-    { icon: 'card', title: 'Billing & Subscription', description: 'Manage your membership' },
-    { icon: 'help-circle', title: 'Help & Support', description: 'Get help and contact support' },
+    {
+      icon: "settings",
+      title: "App Settings",
+      description: "Customize your app experience",
+    },
+    {
+      icon: "shield-checkmark",
+      title: "Privacy & Security",
+      description: "Manage your data and security",
+    },
+    {
+      icon: "document-text",
+      title: "Medical Records",
+      description: "View and manage medical history",
+    },
+    {
+      icon: "calendar",
+      title: "Appointment History",
+      description: "Past and upcoming sessions",
+    },
+    {
+      icon: "card",
+      title: "Billing & Subscription",
+      description: "Manage your membership",
+    },
+    {
+      icon: "help-circle",
+      title: "Help & Support",
+      description: "Get help and contact support",
+    },
   ];
 
-  const handlePreferenceToggle = (key) => {
-    setPreferences(prev => ({
+  const handlePreferenceToggle = (key: any) => {
+    setPreferences((prev: any) => ({
       ...prev,
-      [key]: !prev[key]
+      [key]: !prev[key],
     }));
   };
 
   const handleLogout = () => {
     // Add logout logic here
-    navigation.navigate('Auth');
+    navigation.navigate("Auth");
   };
 
   return (
     <LinearGradient
-      colors={['#44B8F3', '#2A9FD9', '#44B8F3']}
+      colors={["#44B8F3", "#2A9FD9", "#44B8F3"]}
       style={styles.gradientContainer}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
     >
-      <ScrollView 
-        style={styles.container}
-        showsVerticalScrollIndicator={false}
-      >
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         {/* Header Section */}
         <View style={styles.header}>
           {/* <TouchableOpacity 
@@ -88,14 +107,14 @@ const ProfileScreen = ({ navigation }) => {
             <Ionicons name="arrow-back" size={24} color="#fff" />
           </TouchableOpacity> */}
           <Text style={styles.headerTitle}>My Profile</Text>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.editButton}
             onPress={() => setIsEditing(!isEditing)}
           >
-            <Ionicons 
-              name={isEditing ? "checkmark" : "create"} 
-              size={22} 
-              color="#fff" 
+            <Ionicons
+              name={isEditing ? "checkmark" : "create"}
+              size={22}
+              color="#fff"
             />
           </TouchableOpacity>
         </View>
@@ -103,7 +122,7 @@ const ProfileScreen = ({ navigation }) => {
         {/* Profile Card */}
         <View style={styles.profileCard}>
           <LinearGradient
-            colors={['#44B8F3', '#2A9FD9']}
+            colors={["#44B8F3", "#2A9FD9"]}
             style={styles.profileGradient}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
@@ -118,23 +137,27 @@ const ProfileScreen = ({ navigation }) => {
                   <Ionicons name="camera" size={20} color="#44B8F3" />
                 </TouchableOpacity>
               </View>
-              
+
               {isEditing ? (
                 <TextInput
                   style={styles.nameInput}
                   value={userData.name}
-                  onChangeText={(text) => setUserData({...userData, name: text})}
+                  onChangeText={(text) =>
+                    setUserData({ ...userData, name: text })
+                  }
                   placeholder="Enter your name"
                 />
               ) : (
                 <Text style={styles.userName}>{userData.name}</Text>
               )}
-              
+
               <Text style={styles.userEmail}>{userData.email}</Text>
-              
+
               <View style={styles.membershipBadge}>
                 <Ionicons name="diamond" size={16} color="#FFD700" />
-                <Text style={styles.membershipText}>{userData.membership} Member</Text>
+                <Text style={styles.membershipText}>
+                  {userData.membership} Member
+                </Text>
               </View>
             </View>
 
@@ -167,16 +190,46 @@ const ProfileScreen = ({ navigation }) => {
 
           <View style={styles.infoGrid}>
             {[
-              { label: 'Age', value: userData.age, icon: 'calendar', editable: true },
-              { label: 'Weight', value: userData.weight, icon: 'scale', editable: true },
-              { label: 'Height', value: userData.height, icon: 'resize', editable: true },
-              { label: 'Phone', value: userData.phone, icon: 'call', editable: true },
-              { label: 'Condition', value: userData.condition, icon: 'medical', editable: false },
-              { label: 'Therapist', value: userData.therapist, icon: 'person', editable: false },
+              {
+                label: "Age",
+                value: userData.age,
+                icon: "calendar",
+                editable: true,
+              },
+              {
+                label: "Weight",
+                value: userData.weight,
+                icon: "scale",
+                editable: true,
+              },
+              {
+                label: "Height",
+                value: userData.height,
+                icon: "resize",
+                editable: true,
+              },
+              {
+                label: "Phone",
+                value: userData.phone,
+                icon: "call",
+                editable: true,
+              },
+              {
+                label: "Condition",
+                value: userData.condition,
+                icon: "medical",
+                editable: false,
+              },
+              {
+                label: "Therapist",
+                value: userData.therapist,
+                icon: "person",
+                editable: false,
+              },
             ].map((item, index) => (
               <View key={index} style={styles.infoItem}>
                 <View style={styles.infoIcon}>
-                  <Ionicons name={item.icon} size={18} color="#44B8F3" />
+                  <Ionicons name={item.icon as any} size={18} color="#44B8F3" />
                 </View>
                 <View style={styles.infoContent}>
                   <Text style={styles.infoLabel}>{item.label}</Text>
@@ -184,7 +237,12 @@ const ProfileScreen = ({ navigation }) => {
                     <TextInput
                       style={styles.infoValueInput}
                       value={item.value}
-                      onChangeText={(text) => setUserData({...userData, [item.label.toLowerCase()]: text})}
+                      onChangeText={(text) =>
+                        setUserData({
+                          ...userData,
+                          [item.label.toLowerCase()]: text,
+                        })
+                      }
                     />
                   ) : (
                     <Text style={styles.infoValue}>{item.value}</Text>
@@ -206,7 +264,11 @@ const ProfileScreen = ({ navigation }) => {
             {achievements.map((achievement, index) => (
               <View key={index} style={styles.achievementCard}>
                 <View style={styles.achievementIcon}>
-                  <Ionicons name={achievement.icon} size={24} color="#44B8F3" />
+                  <Ionicons
+                    name={achievement.icon as any}
+                    size={24}
+                    color="#44B8F3"
+                  />
                 </View>
                 <Text style={styles.achievementCount}>{achievement.count}</Text>
                 <Text style={styles.achievementTitle}>{achievement.title}</Text>
@@ -233,7 +295,7 @@ const ProfileScreen = ({ navigation }) => {
               <View style={styles.preferenceLeft}>
                 <View style={[styles.preferenceIcon, { backgroundColor: `${preferences[pref.key] ? '#44B8F320' : '#f0f0f0'}` }]}>
                   <Ionicons 
-                    name={pref.icon} 
+                    name={pref.icon as any} 
                     size={20} 
                     color={preferences[pref.key] ? '#44B8F3' : '#666'} 
                   />
@@ -302,12 +364,9 @@ const ProfileScreen = ({ navigation }) => {
         </View> */}
 
         {/* Logout Button */}
-        <TouchableOpacity 
-          style={styles.logoutButton}
-          onPress={handleLogout}
-        >
+        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
           <LinearGradient
-            colors={['#FF6B6B', '#FF8E53']}
+            colors={["#FF6B6B", "#FF8E53"]}
             style={styles.logoutGradient}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
@@ -335,9 +394,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 25,
     paddingTop: 60,
     paddingBottom: 20,
@@ -346,29 +405,29 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: 'rgba(255, 255, 255, 0.15)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "rgba(255, 255, 255, 0.15)",
+    justifyContent: "center",
+    alignItems: "center",
   },
   headerTitle: {
     fontSize: 24,
-    fontWeight: '700',
-    color: '#fff',
+    fontWeight: "700",
+    color: "#fff",
   },
   editButton: {
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: 'rgba(255, 255, 255, 0.15)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "rgba(255, 255, 255, 0.15)",
+    justifyContent: "center",
+    alignItems: "center",
   },
   profileCard: {
     marginHorizontal: 25,
     marginBottom: 25,
     borderRadius: 30,
-    overflow: 'hidden',
-    shadowColor: '#000',
+    overflow: "hidden",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 15 },
     shadowOpacity: 0.3,
     shadowRadius: 25,
@@ -378,21 +437,21 @@ const styles = StyleSheet.create({
     padding: 30,
   },
   avatarSection: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 25,
   },
   avatarContainer: {
-    position: 'relative',
+    position: "relative",
     marginBottom: 20,
   },
   avatar: {
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.2,
     shadowRadius: 15,
@@ -400,20 +459,20 @@ const styles = StyleSheet.create({
   },
   avatarText: {
     fontSize: 36,
-    fontWeight: '700',
-    color: '#44B8F3',
+    fontWeight: "700",
+    color: "#44B8F3",
   },
   cameraButton: {
-    position: 'absolute',
+    position: "absolute",
     right: 0,
     bottom: 0,
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.2,
     shadowRadius: 10,
@@ -421,108 +480,108 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: 28,
-    fontWeight: '700',
-    color: '#fff',
+    fontWeight: "700",
+    color: "#fff",
     marginBottom: 5,
   },
   nameInput: {
     fontSize: 28,
-    fontWeight: '700',
-    color: '#fff',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    fontWeight: "700",
+    color: "#fff",
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
     padding: 10,
     borderRadius: 10,
     marginBottom: 5,
-    width: '80%',
-    textAlign: 'center',
+    width: "80%",
+    textAlign: "center",
   },
   userEmail: {
     fontSize: 14,
-    color: 'rgba(255, 255, 255, 0.8)',
+    color: "rgba(255, 255, 255, 0.8)",
     marginBottom: 15,
   },
   membershipBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.15)",
     paddingHorizontal: 15,
     paddingVertical: 6,
     borderRadius: 15,
   },
   membershipText: {
     fontSize: 12,
-    color: '#fff',
-    fontWeight: '600',
+    color: "#fff",
+    fontWeight: "600",
     marginLeft: 5,
   },
   quickStats: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    flexDirection: "row",
+    justifyContent: "space-around",
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
     borderRadius: 20,
     padding: 20,
   },
   statItem: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   statValue: {
     fontSize: 24,
-    fontWeight: '700',
-    color: '#fff',
+    fontWeight: "700",
+    color: "#fff",
     marginBottom: 5,
   },
   statLabel: {
     fontSize: 12,
-    color: 'rgba(255, 255, 255, 0.8)',
+    color: "rgba(255, 255, 255, 0.8)",
   },
   statDivider: {
     width: 1,
     height: 40,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
   },
   sectionContainer: {
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    backgroundColor: "rgba(255, 255, 255, 0.95)",
     borderRadius: 25,
     marginHorizontal: 25,
     marginBottom: 20,
     padding: 25,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.1,
     shadowRadius: 20,
     elevation: 10,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
+    borderColor: "rgba(255, 255, 255, 0.2)",
   },
   sectionHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 20,
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: '700',
-    color: '#333',
+    fontWeight: "700",
+    color: "#333",
     marginLeft: 12,
   },
   infoGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
   },
   infoItem: {
-    width: '48%',
-    flexDirection: 'row',
-    alignItems: 'center',
+    width: "48%",
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 20,
   },
   infoIcon: {
     width: 40,
     height: 40,
     borderRadius: 12,
-    backgroundColor: 'rgba(68, 184, 243, 0.1)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "rgba(68, 184, 243, 0.1)",
+    justifyContent: "center",
+    alignItems: "center",
     marginRight: 12,
   },
   infoContent: {
@@ -530,81 +589,81 @@ const styles = StyleSheet.create({
   },
   infoLabel: {
     fontSize: 12,
-    color: '#666',
+    color: "#666",
     marginBottom: 4,
   },
   infoValue: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: "#333",
   },
   infoValueInput: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-    backgroundColor: '#f0f0f0',
+    fontWeight: "600",
+    color: "#333",
+    backgroundColor: "#f0f0f0",
     padding: 8,
     borderRadius: 8,
   },
   achievementsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
   },
   achievementCard: {
-    width: '48%',
-    backgroundColor: '#fff',
+    width: "48%",
+    backgroundColor: "#fff",
     borderRadius: 15,
     padding: 20,
     marginBottom: 15,
-    alignItems: 'center',
-    shadowColor: '#000',
+    alignItems: "center",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.05,
     shadowRadius: 5,
     elevation: 3,
     borderWidth: 1,
-    borderColor: '#f0f0f0',
+    borderColor: "#f0f0f0",
   },
   achievementIcon: {
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: 'rgba(68, 184, 243, 0.1)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "rgba(68, 184, 243, 0.1)",
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 10,
   },
   achievementCount: {
     fontSize: 24,
-    fontWeight: '700',
-    color: '#333',
+    fontWeight: "700",
+    color: "#333",
     marginBottom: 5,
   },
   achievementTitle: {
     fontSize: 12,
-    color: '#666',
-    textAlign: 'center',
+    color: "#666",
+    textAlign: "center",
   },
   preferenceItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingVertical: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: "#f0f0f0",
   },
   preferenceLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     flex: 1,
   },
   preferenceIcon: {
     width: 44,
     height: 44,
     borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginRight: 15,
   },
   preferenceInfo: {
@@ -612,34 +671,34 @@ const styles = StyleSheet.create({
   },
   preferenceLabel: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: "#333",
     marginBottom: 3,
   },
   preferenceDescription: {
     fontSize: 12,
-    color: '#666',
+    color: "#666",
   },
   menuItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingVertical: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: "#f0f0f0",
   },
   menuLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     flex: 1,
   },
   menuIcon: {
     width: 44,
     height: 44,
     borderRadius: 12,
-    backgroundColor: 'rgba(68, 184, 243, 0.1)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "rgba(68, 184, 243, 0.1)",
+    justifyContent: "center",
+    alignItems: "center",
     marginRight: 15,
   },
   menuInfo: {
@@ -647,89 +706,89 @@ const styles = StyleSheet.create({
   },
   menuTitle: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: "#333",
     marginBottom: 3,
   },
   menuDescription: {
     fontSize: 12,
-    color: '#666',
+    color: "#666",
   },
   accountDetails: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 15,
     padding: 20,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.05,
     shadowRadius: 5,
     elevation: 3,
     borderWidth: 1,
-    borderColor: '#f0f0f0',
+    borderColor: "#f0f0f0",
   },
   detailItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: "#f0f0f0",
   },
   detailLabel: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
   },
   detailValue: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: "#333",
   },
   premiumBadge: {
-    backgroundColor: 'rgba(68, 184, 243, 0.1)',
+    backgroundColor: "rgba(68, 184, 243, 0.1)",
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 15,
   },
   premiumText: {
     fontSize: 12,
-    color: '#44B8F3',
-    fontWeight: '600',
+    color: "#44B8F3",
+    fontWeight: "600",
   },
   logoutButton: {
     marginHorizontal: 25,
     marginBottom: 20,
     borderRadius: 20,
-    overflow: 'hidden',
-    shadowColor: '#FF6B6B',
+    overflow: "hidden",
+    shadowColor: "#FF6B6B",
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.3,
     shadowRadius: 15,
     elevation: 10,
   },
   logoutGradient: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 18,
   },
   logoutText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: "700",
     marginLeft: 10,
   },
   versionContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: 20,
   },
   versionText: {
     fontSize: 14,
-    color: 'rgba(255, 255, 255, 0.7)',
+    color: "rgba(255, 255, 255, 0.7)",
     marginBottom: 5,
   },
   copyrightText: {
     fontSize: 12,
-    color: 'rgba(255, 255, 255, 0.5)',
+    color: "rgba(255, 255, 255, 0.5)",
   },
 });
 

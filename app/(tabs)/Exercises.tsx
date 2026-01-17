@@ -1,22 +1,21 @@
 // screens/ExercisesScreen.js
+import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
+import { router } from "expo-router";
 import React, { useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
   Dimensions,
+  ScrollView,
+  StyleSheet,
+  Text,
   TextInput,
-  Image,
+  TouchableOpacity,
+  View
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
 
 const { width } = Dimensions.get("window");
 
-const ExercisesScreen = ({ navigation }) => {
+const ExercisesScreen = ({ navigation }: any) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [favorites, setFavorites] = useState([1, 3]);
@@ -171,23 +170,27 @@ const ExercisesScreen = ({ navigation }) => {
       ? exercises.filter(
           (ex) =>
             ex.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            ex.description.toLowerCase().includes(searchQuery.toLowerCase())
+            ex.description.toLowerCase().includes(searchQuery.toLowerCase()),
         )
       : selectedCategory === "Favorites"
-      ? exercises.filter(
-          (ex) =>
-            favorites.includes(ex.id) &&
-            (ex.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              ex.description.toLowerCase().includes(searchQuery.toLowerCase()))
-        )
-      : exercises.filter(
-          (ex) =>
-            ex.category === selectedCategory &&
-            (ex.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              ex.description.toLowerCase().includes(searchQuery.toLowerCase()))
-        );
+        ? exercises.filter(
+            (ex) =>
+              favorites.includes(ex.id) &&
+              (ex.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                ex.description
+                  .toLowerCase()
+                  .includes(searchQuery.toLowerCase())),
+          )
+        : exercises.filter(
+            (ex) =>
+              ex.category === selectedCategory &&
+              (ex.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                ex.description
+                  .toLowerCase()
+                  .includes(searchQuery.toLowerCase())),
+          );
 
-  const toggleFavorite = (exerciseId) => {
+  const toggleFavorite = (exerciseId: any) => {
     if (favorites.includes(exerciseId)) {
       setFavorites(favorites.filter((id) => id !== exerciseId));
     } else {
@@ -195,9 +198,10 @@ const ExercisesScreen = ({ navigation }) => {
     }
   };
 
-  const startExercise = (exercise) => {
-    navigation.navigate("ExerciseDetail", {
-      exercise: JSON.stringify(exercise),
+  const startExercise = (exercise: any) => {
+    router.push({
+      pathname: "/Trainer",
+      params: { exercise: JSON.stringify(exercise) },
     });
   };
 
@@ -219,7 +223,7 @@ const ExercisesScreen = ({ navigation }) => {
           </View>
           <TouchableOpacity
             style={styles.statsButton}
-            onPress={() => navigation.navigate("Progress")}
+            onPress={() => router.push("/Progress")}
           >
             <Ionicons name="stats-chart" size={24} color="#fff" />
           </TouchableOpacity>
@@ -300,7 +304,7 @@ const ExercisesScreen = ({ navigation }) => {
                     ]}
                   >
                     <Ionicons
-                      name={category.icon}
+                      name={category.icon as any}
                       size={24}
                       color={
                         selectedCategory === category.name
@@ -362,8 +366,8 @@ const ExercisesScreen = ({ navigation }) => {
               {selectedCategory === "All"
                 ? "All Exercises"
                 : selectedCategory === "Favorites"
-                ? "Favorite Exercises"
-                : selectedCategory + " Exercises"}
+                  ? "Favorite Exercises"
+                  : selectedCategory + " Exercises"}
             </Text>
             <Text style={styles.sectionCount}>
               {filteredExercises.length} found
@@ -527,11 +531,12 @@ const ExercisesScreen = ({ navigation }) => {
                   </Text>
                 </View>
 
-                <TouchableOpacity style={styles.featuredButton}
-                  onPress={() =>{
-                    router.push('/')
+                <TouchableOpacity
+                  style={styles.featuredButton}
+                  onPress={() => {
+                    router.push("/");
                   }}
-                  >
+                >
                   <Ionicons name="play-circle" size={28} color="#fff" />
                   <Text style={styles.featuredButtonText}>Start Routine</Text>
                 </TouchableOpacity>

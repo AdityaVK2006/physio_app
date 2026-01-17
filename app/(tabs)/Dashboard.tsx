@@ -21,10 +21,10 @@ import { ExerciseVideoPlayer } from '../../components/ExerciseVideoPlayer';
 
 const { width } = Dimensions.get('window');
 
-const DashboardScreen = ({ navigation }) => {
+const DashboardScreen = ({ navigation }: any) => {
   const [refreshing, setRefreshing] = useState(false);
   const [greeting, setGreeting] = useState('Good Morning');
-  const [selectedExercise, setSelectedExercise] = useState(null);
+  const [selectedExercise, setSelectedExercise] = useState<any>(null);
   const [showVideoModal, setShowVideoModal] = useState(false);
   const scrollY = useRef(new Animated.Value(0)).current;
   const successPlayer = useAudioPlayer('https://www.soundjay.com/buttons/sounds/button-09.mp3');
@@ -251,17 +251,17 @@ const DashboardScreen = ({ navigation }) => {
     setTimeout(() => setRefreshing(false), 1500);
   };
 
-  const openVideoGuide = (exercise) => {
+  const openVideoGuide = (exercise: any) => {
     setSelectedExercise(exercise);
     setShowVideoModal(true);
   };
 
-  const startExercise = (exercise) => {
+  const startExercise = (exercise: any) => {
     // Navigate to exercise detail screen
     navigation.navigate('ExerciseDetail', { exercise: JSON.stringify(exercise) });
   };
 
-  const toggleExerciseComplete = (exerciseId) => {
+  const toggleExerciseComplete = (exerciseId: any) => {
     // Toggle completion status
     console.log('Toggle exercise:', exerciseId);
     successPlayer.play();
@@ -362,7 +362,7 @@ const DashboardScreen = ({ navigation }) => {
               <View key={stat.id} style={styles.statCard}>
                 <View style={styles.statCardHeader}>
                   <View style={[styles.statIcon, { backgroundColor: stat.color + '20' }]}>
-                    <Ionicons name={stat.icon} size={20} color={stat.color} />
+                    <Ionicons name={stat.icon as any} size={20} color={stat.color} />
                   </View>
                   <Text style={[styles.trendText, { color: stat.trendColor }]}>
                     {stat.trend}
